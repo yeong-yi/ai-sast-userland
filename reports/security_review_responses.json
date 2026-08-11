@@ -1,0 +1,1974 @@
+{
+  "report_type": "security_review_handoff",
+  "review_origin": "human_provided_review",
+  "automated_ai_analysis": false,
+  "external_llm_api_used": false,
+  "generated_at": "2026-08-11T22:13:54.307512+00:00",
+  "notice": "These reviews were written by a human and are not LLM-generated responses.",
+  "reviews": [
+    {
+      "analysis_id": "AN-001",
+      "title": "네트워크 캡처 파일명 sprintf",
+      "source_candidate_ids": [
+        "CAND-0001"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/containers/io/io_net.c",
+          "line": 110,
+          "contains": "char filename[CAPTURE_FILENAME_BUFFER_SIZE]",
+          "purpose": "대상 버퍼 선언",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/containers/io/io_net.c",
+          "line": 58,
+          "contains": "CAPTURE_FILENAME_BUFFER_SIZE   300",
+          "purpose": "버퍼 크기 정의",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/containers/io/io_net.c",
+          "line": 134,
+          "contains": "strlen(format) + strlen(host_str) + strlen(port_str) - 4",
+          "purpose": "출력 길이 검사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/containers/io/io_net.c",
+          "line": 138,
+          "contains": "sprintf(filename, format, host_str, port_str",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/containers/io/io_net.c",
+          "line": 313,
+          "contains": "host = vc_uri_host(ctx->uri_parts)",
+          "purpose": "host 출처",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E6",
+          "file": "target/userland/containers/io/io_net.c",
+          "line": 332,
+          "contains": "io_net_open_capture_file(host, port",
+          "purpose": "호출 경로",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "filename은 300바이트 지역 배열이다.",
+            "evidence_ids": [
+              "E1",
+              "E2"
+            ]
+          },
+          {
+            "finding": "host와 port는 URI 파싱 결과이고 format은 함수 안에서 선택된다.",
+            "evidence_ids": [
+              "E5",
+              "E6"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "URI에서 얻은 host가 호출 인자로 전달된다.",
+          "evidence_ids": [
+            "E5",
+            "E6"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "ctx URI → host → io_net_open_capture_file → sprintf",
+            "evidence_ids": [
+              "E5",
+              "E6",
+              "E4"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "서식의 두 %s와 한 %c 치환 및 종료문자를 반영한 필요 크기를 300과 비교한다.",
+          "evidence_ids": [
+            "E2",
+            "E3",
+            "E4"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "계산 결과가 버퍼보다 크면 sprintf 전에 반환한다.",
+            "evidence_ids": [
+              "E3"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "길이 계산이 틀리면 스택 버퍼 넘침이 가능하지만 현재 식은 필요한 종료문자까지 포함한다.",
+          "evidence_ids": [
+            "E1",
+            "E3",
+            "E4"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/containers/io/io_net.c",
+          "start_line": 53,
+          "end_line": 60,
+          "reason": "서식과 버퍼 크기 상수 확인"
+        },
+        {
+          "file": "target/userland/containers/io/io_net.c",
+          "start_line": 298,
+          "end_line": 334,
+          "reason": "URI 입력과 호출 경로 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "URI host/port가 호출자에서 대상 함수로 연결된다.",
+          "evidence_ids": [
+            "E5",
+            "E6"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "sprintf 직전에 명시적 크기 검사가 있다.",
+          "evidence_ids": [
+            "E3",
+            "E4"
+          ]
+        },
+        "reachability_check": {
+          "finding": "패킷 캡처 빌드에서 소켓 열기 경로가 함수를 호출한다.",
+          "evidence_ids": [
+            "E6"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "위험 함수만으로 취약점이라 하지 않고 산술 검사를 반영했다.",
+          "evidence_ids": [
+            "E3",
+            "E4"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 98,
+        "vulnerability_type": "반박된 스택 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "버퍼 크기는 300이며 sprintf 전에 필요한 크기를 검사한다.",
+            "evidence_ids": [
+              "E2",
+              "E3",
+              "E4"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 URI host 또는 port 길이를 조절하고 캡처 경로가 실행되어야 한다.",
+            "evidence_ids": [
+              "E5",
+              "E6"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "초과 크기는 호출 전에 거절된다.",
+            "evidence_ids": [
+              "E3"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "서식 치환 길이와 종료문자를 포함한 사전 검사가 확인됨"
+      }
+    },
+    {
+      "analysis_id": "AN-002",
+      "title": "YUV4MPEG2 코덱 옵션 strcpy",
+      "source_candidate_ids": [
+        "CAND-0002"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 43,
+          "contains": "OPTION_SIZE_MAX 32",
+          "purpose": "배열 크기",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 55,
+          "contains": "char option[OPTION_SIZE_MAX]",
+          "purpose": "원본 배열",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 85,
+          "contains": "PEEK_BYTES(ctx, module->option",
+          "purpose": "입력 복사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 93,
+          "contains": "module->option[i] = 0",
+          "purpose": "문자열 종료",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 104,
+          "contains": "if (i == size)",
+          "purpose": "긴 옵션 거절",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E6",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 108,
+          "contains": "return VC_CONTAINER_ERROR_NOT_FOUND",
+          "purpose": "긴 옵션 반환",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E7",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 119,
+          "contains": "char codec[OPTION_SIZE_MAX]",
+          "purpose": "대상 배열",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E8",
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "line": 150,
+          "contains": "strcpy(codec, module->option+1)",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "codec과 module->option은 모두 OPTION_SIZE_MAX 크기다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E7"
+            ]
+          },
+          {
+            "finding": "원본은 module->option의 두 번째 문자부터다.",
+            "evidence_ids": [
+              "E8"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "PEEK_BYTES가 헤더 데이터를 module->option으로 읽는다.",
+          "evidence_ids": [
+            "E3"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "헤더 바이트 → module->option → codec",
+            "evidence_ids": [
+              "E3",
+              "E8"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "구분자를 만나면 널 종료하며 구분자 없이 배열을 채우면 성공을 반환하지 않는다.",
+          "evidence_ids": [
+            "E4",
+            "E5",
+            "E6"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "긴 옵션은 버리고 NOT_FOUND를 반환한다.",
+            "evidence_ids": [
+              "E5",
+              "E6"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "strcpy 자체는 무제한이지만 성공 경로의 원본은 종료되고 대상은 같은 크기다.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E4",
+            "E7",
+            "E8"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "start_line": 41,
+          "end_line": 65,
+          "reason": "상수와 구조체 배열 크기 확인"
+        },
+        {
+          "file": "target/userland/containers/raw/raw_video_reader.c",
+          "start_line": 75,
+          "end_line": 112,
+          "reason": "옵션 종료와 초과 길이 처리 전체 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "입력 경로는 연결되지만 성공한 옵션만 strcpy 루프에 들어간다.",
+          "evidence_ids": [
+            "E3",
+            "E5",
+            "E6",
+            "E8"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "널 종료와 긴 옵션 폐기가 확인됐다.",
+          "evidence_ids": [
+            "E4",
+            "E5",
+            "E6"
+          ]
+        },
+        "reachability_check": {
+          "finding": "C 옵션일 때 호출되지만 최대 길이 조건은 앞 단계에서 제한된다.",
+          "evidence_ids": [
+            "E5",
+            "E8"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "초기 정보 부족 우려는 함수 나머지 코드로 반박됐다.",
+          "evidence_ids": [
+            "E5",
+            "E6"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 99,
+        "vulnerability_type": "반박된 스택 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "원본과 대상은 같은 32바이트 크기이며 성공 원본은 널 종료된다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E4",
+              "E7"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 C 옵션을 제공해야 하지만 너무 긴 옵션은 복사 전에 거절된다.",
+            "evidence_ids": [
+              "E5",
+              "E6",
+              "E8"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "배열을 가득 채운 옵션은 폐기되고 성공으로 반환되지 않는다.",
+            "evidence_ids": [
+              "E5",
+              "E6"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "추가 문맥에서 널 종료와 초과 길이 거절이 확인됨"
+      }
+    },
+    {
+      "analysis_id": "AN-003",
+      "title": "RTSP MIME 문자열 sprintf",
+      "source_candidate_ids": [
+        "CAND-0003"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/containers/rtsp/rtsp_reader.c",
+          "line": 921,
+          "contains": "mime_sub_type = rtsp_parse_extract",
+          "purpose": "입력 파싱",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/containers/rtsp/rtsp_reader.c",
+          "line": 935,
+          "contains": "malloc(strlen(t_module->media_type) + strlen(mime_sub_type) + 2)",
+          "purpose": "정확한 할당",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/containers/rtsp/rtsp_reader.c",
+          "line": 936,
+          "contains": "if (!full_mime_type)",
+          "purpose": "할당 실패 검사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/containers/rtsp/rtsp_reader.c",
+          "line": 942,
+          "contains": "sprintf(full_mime_type, \"%s/%s\"",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/containers/rtsp/rtsp_reader.c",
+          "line": 949,
+          "contains": "free(full_mime_type)",
+          "purpose": "해제",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "대상은 두 문자열 길이와 구분자·종료문자 2바이트만큼 할당된다.",
+            "evidence_ids": [
+              "E2",
+              "E4"
+            ]
+          },
+          {
+            "finding": "mime_sub_type은 RTSP attribute 파싱 결과다.",
+            "evidence_ids": [
+              "E1"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "RTSP attribute에서 MIME 하위 타입을 추출한다.",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "RTSP attribute → mime_sub_type → sprintf",
+            "evidence_ids": [
+              "E1",
+              "E4"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "%s/%s 결과에 필요한 슬래시 1바이트와 널 1바이트를 더해 할당한다.",
+          "evidence_ids": [
+            "E2",
+            "E4"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "malloc 실패를 검사한다.",
+            "evidence_ids": [
+              "E3"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "길이 덧셈 오버플로 가능성은 현실적 입력 한계가 제공되지 않았지만 직접적인 부족 할당은 보이지 않는다.",
+          "evidence_ids": [
+            "E2"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "외부 파싱 문자열이 연결되지만 길이 기반 할당도 같은 문자열을 사용한다.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E4"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "정확한 길이 할당과 실패 검사가 있다.",
+          "evidence_ids": [
+            "E2",
+            "E3"
+          ]
+        },
+        "reachability_check": {
+          "finding": "RTSP rtpmap 처리 중 실행된다.",
+          "evidence_ids": [
+            "E1",
+            "E4"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "sprintf라는 이유만으로 넘침이라 할 근거가 없다.",
+          "evidence_ids": [
+            "E2",
+            "E4"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 99,
+        "vulnerability_type": "반박된 힙 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "출력 구성요소와 종료문자에 맞춰 메모리를 할당한다.",
+            "evidence_ids": [
+              "E2",
+              "E4"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 MIME 하위 타입을 조절할 수 있지만 동일 길이가 할당 계산에 반영된다.",
+            "evidence_ids": [
+              "E1",
+              "E2"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "할당 실패 처리와 사용 후 해제가 확인된다.",
+            "evidence_ids": [
+              "E3",
+              "E5"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "출력 길이에 맞춘 힙 할당이 확인됨"
+      }
+    },
+    {
+      "analysis_id": "AN-004",
+      "title": "Simple reader URI 조립 strcpy 두 건",
+      "source_candidate_ids": [
+        "CAND-0004",
+        "CAND-0005"
+      ],
+      "deduplication_reason": "같은 uri 할당과 경로 조립에서 발생한 연속된 두 strcpy이므로 하나의 원인으로 묶음",
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "line": 495,
+          "contains": "simple_read_header(ctx)",
+          "purpose": "메타데이터 입력",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "line": 511,
+          "contains": "malloc(strlen(ctx->priv->io->uri)",
+          "purpose": "두 문자열 길이 할당",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "line": 512,
+          "contains": "strlen(track->priv->module->uri) + 1",
+          "purpose": "종료문자 포함",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "line": 516,
+          "contains": "strcpy(uri, ctx->priv->io->uri)",
+          "purpose": "첫 복사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "line": 519,
+          "contains": "uri + strlen(ctx->priv->io->uri) + 1",
+          "purpose": "경로 구분자 탐색",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E6",
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "line": 522,
+          "contains": "strcpy(end, track->priv->module->uri)",
+          "purpose": "두 번째 복사",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "두 URI 문자열 길이 합과 널 1바이트만큼 힙을 할당한다.",
+            "evidence_ids": [
+              "E2",
+              "E3"
+            ]
+          },
+          {
+            "finding": "첫 URI를 복사한 뒤 마지막 구분자 다음부터 트랙 URI를 복사한다.",
+            "evidence_ids": [
+              "E4",
+              "E5",
+              "E6"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "트랙 URI는 앞선 simple header 처리 결과이나 세부 파싱은 이 묶음 밖이다.",
+          "evidence_ids": [
+            "E1",
+            "E6"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "메타데이터/기본 URI → 두 문자열 → uri 버퍼",
+            "evidence_ids": [
+              "E1",
+              "E4",
+              "E6"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "할당은 두 문자열 전체 길이보다 작지 않고 종료문자 1바이트를 포함한다.",
+          "evidence_ids": [
+            "E2",
+            "E3"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "malloc 성공한 경우에만 두 복사를 수행한다.",
+            "evidence_ids": [
+              "E2",
+              "E4"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "극단적 길이 합의 size_t 오버플로는 입력 최대 길이 정보가 없지만 일반 복사 크기는 충족한다.",
+          "evidence_ids": [
+            "E2",
+            "E3"
+          ]
+        },
+        "missing_code": [
+          "URI 최대 길이를 정하는 상위 계층 제한"
+        ],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/containers/simple/simple_reader.c",
+          "start_line": 474,
+          "end_line": 505,
+          "reason": "헤더 처리와 함수 진입 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "두 후보는 같은 할당 버퍼를 조립하는 한 경로다.",
+          "evidence_ids": [
+            "E2",
+            "E4",
+            "E6"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "두 원본 길이와 종료문자 공간이 할당된다.",
+          "evidence_ids": [
+            "E2",
+            "E3"
+          ]
+        },
+        "reachability_check": {
+          "finding": "simple reader가 헤더를 읽은 뒤 트랙 열기에서 실행된다.",
+          "evidence_ids": [
+            "E1",
+            "E4"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "size_t 합 오버플로는 상위 입력 제한이 없어 가능성만 남겼다.",
+          "evidence_ids": [
+            "E2"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 93,
+        "vulnerability_type": "반박된 힙 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "두 복사는 하나의 URI 조립이며 할당량이 두 문자열 길이 합과 종료문자를 포함한다.",
+            "evidence_ids": [
+              "E2",
+              "E3",
+              "E4",
+              "E6"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 매우 긴 두 URI를 만들고 길이 합 산술을 넘치게 해야 한다.",
+            "evidence_ids": [
+              "E1",
+              "E2"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "정상 크기 범위에서는 두 문자열을 모두 담을 공간이 있다.",
+            "evidence_ids": [
+              "E2",
+              "E3"
+            ]
+          }
+        ],
+        "needs_more_information": [
+          "상위 계층의 URI 최대 길이"
+        ],
+        "disposition_reason": "동일 원인 중복을 통합했고 정상 범위의 할당식은 충분함"
+      }
+    },
+    {
+      "analysis_id": "AN-005",
+      "title": "RTP 바이트 덤프 sprintf",
+      "source_candidate_ids": [
+        "CAND-0006"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "line": 107,
+          "contains": "char dump_str[3 * BYTES_PER_ROW + 1]",
+          "purpose": "대상 크기",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "line": 110,
+          "contains": "while (buffer_len--)",
+          "purpose": "입력 반복",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "line": 112,
+          "contains": "sprintf(dump_str + 3 * in_row",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "line": 113,
+          "contains": "++in_row == BYTES_PER_ROW",
+          "purpose": "행 경계 초기화",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "line": 222,
+          "contains": "dump_bytes(buffer, extension_len)",
+          "purpose": "패킷 입력 호출",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E6",
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "line": 215,
+          "contains": "buffer_len < extension_len",
+          "purpose": "입력 길이 검사",
+          "context_origin": "additional_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "각 바이트는 두 자리 16진수와 공백 3문자로 출력된다.",
+            "evidence_ids": [
+              "E3"
+            ]
+          },
+          {
+            "finding": "대상은 행당 3바이트와 마지막 널을 포함한다.",
+            "evidence_ids": [
+              "E1"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "RTP 확장 데이터가 dump_bytes로 전달된다.",
+          "evidence_ids": [
+            "E5"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "RTP buffer → dump_bytes → 고정 폭 sprintf",
+            "evidence_ids": [
+              "E5",
+              "E3"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "in_row는 BYTES_PER_ROW에 도달하면 0으로 초기화되고 배열은 마지막 널 공간을 가진다.",
+          "evidence_ids": [
+            "E1",
+            "E3",
+            "E4"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "확장 길이를 남은 패킷 길이와 비교한다.",
+            "evidence_ids": [
+              "E6"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "현재 고정 서식에서는 행 버퍼 범위를 넘지 않는다.",
+          "evidence_ids": [
+            "E1",
+            "E3",
+            "E4"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/containers/test/rtp_decoder.c",
+          "start_line": 200,
+          "end_line": 233,
+          "reason": "패킷 길이 검사와 호출 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "패킷 데이터가 도달하지만 출력 폭은 입력 값과 무관하게 3문자다.",
+          "evidence_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "배열 산식과 행 초기화가 일치한다.",
+          "evidence_ids": [
+            "E1",
+            "E4"
+          ]
+        },
+        "reachability_check": {
+          "finding": "RTP 확장 또는 payload 덤프에서 호출된다.",
+          "evidence_ids": [
+            "E5"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "sprintf 사용만으로 넘침이라 할 수 없다.",
+          "evidence_ids": [
+            "E1",
+            "E3"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 99,
+        "vulnerability_type": "반박된 스택 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "버퍼 산식이 고정 폭 출력과 널 종료 공간에 맞는다.",
+            "evidence_ids": [
+              "E1",
+              "E3",
+              "E4"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 패킷 바이트를 바꿀 수 있어도 한 바이트의 출력 폭은 늘어나지 않는다.",
+            "evidence_ids": [
+              "E3",
+              "E5"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "행 인덱스는 한 행 끝에서 즉시 초기화된다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "고정 출력 폭과 배열 크기 및 행 경계가 정확히 대응함"
+      }
+    },
+    {
+      "analysis_id": "AN-006",
+      "title": "테스트 서버 기본 이름 strcpy",
+      "source_candidate_ids": [
+        "CAND-0007"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/containers/test/stream_server.c",
+          "line": 37,
+          "contains": "MAX_NAME_LEN    256",
+          "purpose": "크기 상수",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/containers/test/stream_server.c",
+          "line": 45,
+          "contains": "char name[MAX_NAME_LEN]",
+          "purpose": "대상 배열",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/containers/test/stream_server.c",
+          "line": 86,
+          "contains": "strcpy(name, \"<unknown>\")",
+          "purpose": "상수 복사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/containers/test/stream_server.c",
+          "line": 87,
+          "contains": "vc_container_net_get_client_name(sock, name, sizeof(name))",
+          "purpose": "후속 제한 API",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "대상은 256바이트 배열이고 원본은 짧은 고정 문자열이다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E3"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "해당 strcpy에는 외부 입력이 전달되지 않는다.",
+          "evidence_ids": [
+            "E3"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "고정 문자열 <unknown> → name",
+            "evidence_ids": [
+              "E3"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "고정 문자열은 256바이트 대상보다 충분히 작고 strcpy가 널을 복사한다.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E3"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "실제 클라이언트 이름 조회에는 sizeof(name)이 전달된다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "이 strcpy 자체에는 공격자 제어 원본이 없다.",
+          "evidence_ids": [
+            "E3"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/containers/test/stream_server.c",
+          "start_line": 36,
+          "end_line": 48,
+          "reason": "상수와 배열 선언 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "위험 호출의 원본은 네트워크 값이 아닌 리터럴이다.",
+          "evidence_ids": [
+            "E3"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "대상 크기와 후속 길이 인자가 확인된다.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E4"
+          ]
+        },
+        "reachability_check": {
+          "finding": "연결 수락 경로에서 실행되나 값은 고정이다.",
+          "evidence_ids": [
+            "E3",
+            "E4"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "네트워크 서버라는 주변 맥락을 strcpy 원본과 혼동하지 않았다.",
+          "evidence_ids": [
+            "E3",
+            "E4"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 100,
+        "vulnerability_type": "명백한 오탐에 가까운 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "256바이트 배열에 10바이트 미만 고정 문자열을 복사한다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E3"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 이 strcpy의 원본을 바꿀 경로가 제시된 코드에는 없다.",
+            "evidence_ids": [
+              "E3"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "외부 이름 조회는 별도 호출이며 대상 크기를 전달한다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "원본이 짧은 컴파일타임 상수이며 대상은 256바이트"
+      }
+    },
+    {
+      "analysis_id": "AN-007",
+      "title": "오버레이 심볼 경로 strcpy",
+      "source_candidate_ids": [
+        "CAND-0008"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.h",
+          "line": 48,
+          "contains": "DTOVERLAY_MAX_PATH 256",
+          "purpose": "경로 최대 크기",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1048,
+          "contains": "char target_path[DTOVERLAY_MAX_PATH]",
+          "purpose": "대상 배열",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1058,
+          "contains": "fdt_getprop_by_offset",
+          "purpose": "DTB 속성 입력",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1094,
+          "contains": "fdt_get_path",
+          "purpose": "대상 경로 생성",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1106,
+          "contains": "new_path_len = target_path_len",
+          "purpose": "결합 길이 계산",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E6",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1107,
+          "contains": "new_path_len >= (int)sizeof(target_path)",
+          "purpose": "경계 검사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E7",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1113,
+          "contains": "strcpy(target_path + target_path_len, p)",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "대상은 256바이트 경로 배열의 기존 문자열 끝이다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E7"
+            ]
+          },
+          {
+            "finding": "원본 p는 DTB 심볼 속성에서 파생된다.",
+            "evidence_ids": [
+              "E3",
+              "E7"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "오버레이 DTB 속성이 sym_path로 읽힌다.",
+          "evidence_ids": [
+            "E3"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "DTB symbol property → p → target_path 뒤쪽 strcpy",
+            "evidence_ids": [
+              "E3",
+              "E5",
+              "E7"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "결합 길이를 계산해 배열 크기 이상이면 거절한다.",
+          "evidence_ids": [
+            "E5",
+            "E6"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "fdt_get_path에도 대상 배열 크기를 전달하고 결합 전 별도 검사를 한다.",
+            "evidence_ids": [
+              "E2",
+              "E4",
+              "E6"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "sym_path 속성이 반드시 널 종료 문자열인지 이 코드만으로 확인되지 않는다.",
+          "evidence_ids": [
+            "E3",
+            "E7"
+          ]
+        },
+        "missing_code": [
+          "libfdt의 fdt_getprop_by_offset 문자열 종료 보장 또는 호출 전 DTB 검증"
+        ],
+        "verdict": "정보 부족"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.h",
+          "start_line": 43,
+          "end_line": 50,
+          "reason": "경로 크기 상수 확인"
+        },
+        {
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "start_line": 1039,
+          "end_line": 1062,
+          "reason": "배열과 DTB 속성 출처 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "추가 정보 필요",
+        "path_check": {
+          "finding": "DTB 속성에서 strcpy까지의 코드 경로는 연결된다.",
+          "evidence_ids": [
+            "E3",
+            "E7"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "명시적 결합 길이 검사가 존재한다.",
+          "evidence_ids": [
+            "E5",
+            "E6"
+          ]
+        },
+        "reachability_check": {
+          "finding": "오버레이 경로 적용 시 실행되지만 malformed 문자열 허용 여부는 확인되지 않는다.",
+          "evidence_ids": [
+            "E3",
+            "E4"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "경계 검사를 무시한 높은 판정도, 종료 보장을 가정한 낮은 판정도 하지 않았다.",
+          "evidence_ids": [
+            "E3",
+            "E6",
+            "E7"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "정보 부족",
+        "confidence": 74,
+        "vulnerability_type": "잠재적 경계 밖 읽기 또는 스택 버퍼 오버플로",
+        "core_basis": [
+          {
+            "claim": "결합 길이 검사는 있으나 원본 DTB 속성의 널 종료 전제가 확인되지 않았다.",
+            "evidence_ids": [
+              "E3",
+              "E5",
+              "E6",
+              "E7"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 비정상적으로 종료된 심볼 경로를 가진 DTB를 처리시킬 수 있어야 한다.",
+            "evidence_ids": [
+              "E3",
+              "E7"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "256바이트 배열 크기 전달과 결합 길이 거절이 존재한다.",
+            "evidence_ids": [
+              "E1",
+              "E4",
+              "E6"
+            ]
+          }
+        ],
+        "needs_more_information": [
+          "fdt_getprop_by_offset가 반환하는 문자열 속성의 종료 규약",
+          "이 함수 전에 수행되는 DTB 유효성 검사"
+        ],
+        "disposition_reason": "널 종료 전제가 확인되지 않아 높음 또는 낮음 확정 불가"
+      }
+    },
+    {
+      "analysis_id": "AN-008",
+      "title": "내부 심볼 이름 유연 배열 strcpy",
+      "source_candidate_ids": [
+        "CAND-0009"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1364,
+          "contains": "char str[1]",
+          "purpose": "가변 꼬리 배열",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1385,
+          "contains": "fdt_getprop_by_offset",
+          "purpose": "이름 출처",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1388,
+          "contains": "malloc(sizeof(*new_str) + strlen(name))",
+          "purpose": "할당",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1389,
+          "contains": "if (!new_str)",
+          "purpose": "실패 검사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1402,
+          "contains": "strcpy(new_str->str, name)",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "name은 DTB property 이름이고 대상은 구조체 끝의 char 배열이다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E5"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "이름은 DTB property 조회에서 얻는다.",
+          "evidence_ids": [
+            "E2"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "DTB property name → 동적 str 영역",
+            "evidence_ids": [
+              "E2",
+              "E5"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "구조체에는 이미 str[1]이 포함되고 strlen(name)만큼 추가 할당해 널까지 수용한다.",
+          "evidence_ids": [
+            "E1",
+            "E3",
+            "E5"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "할당 실패를 확인한다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "정상적으로 종료된 name 전제에서는 부족 할당이 아니다.",
+          "evidence_ids": [
+            "E2",
+            "E3"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "외부 구조 데이터에서 이름이 오지만 동일 이름 길이로 할당한다.",
+          "evidence_ids": [
+            "E2",
+            "E3",
+            "E5"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "char str[1]과 추가 strlen 할당이 종료문자 공간을 만든다.",
+          "evidence_ids": [
+            "E1",
+            "E3"
+          ]
+        },
+        "reachability_check": {
+          "finding": "심볼 필터링 중 property 이름마다 실행된다.",
+          "evidence_ids": [
+            "E2",
+            "E5"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "고전적인 구조체 꼬리 할당 패턴을 오버플로로 오판하지 않았다.",
+          "evidence_ids": [
+            "E1",
+            "E3"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 97,
+        "vulnerability_type": "반박된 힙 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "str[1] 공간에 strlen(name) 바이트를 추가해 name과 널을 담는다.",
+            "evidence_ids": [
+              "E1",
+              "E3",
+              "E5"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "name이 널 종료되지 않으면 strlen 단계가 먼저 문제가 되지만 해당 전제 위반은 확인되지 않았다.",
+            "evidence_ids": [
+              "E2",
+              "E3"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "할당 실패도 처리된다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "구조체 꼬리 배열을 위한 충분한 동적 할당 패턴"
+      }
+    },
+    {
+      "analysis_id": "AN-009",
+      "title": "노드 이름 sprintf",
+      "source_candidate_ids": [
+        "CAND-0010"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1703,
+          "contains": "old_name = fdt_get_name",
+          "purpose": "기존 이름",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1707,
+          "contains": "name_len = (atpos - old_name)",
+          "purpose": "접두 길이",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1708,
+          "contains": "malloc(name_len + 1 + 16 + 1)",
+          "purpose": "할당",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1709,
+          "contains": "if (!new_name)",
+          "purpose": "실패 검사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1711,
+          "contains": "sprintf(new_name, \"%.*s@%x\"",
+          "purpose": "위험 호출",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "접두 길이는 old_name의 @ 앞부분이고 숫자는 uint32_t의 16진수다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E5"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "old_name은 DTB 노드 이름에서 온다.",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "DTB node name 접두 + override 정수 → new_name",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E5"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "접두 길이에 @, 최대 8자리 uint32 16진수보다 큰 16바이트, 널 공간을 더한다.",
+          "evidence_ids": [
+            "E2",
+            "E3",
+            "E5"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "할당 실패를 확인한다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "현재 서식과 uint32_t 변환에서는 할당 여유가 충분하다.",
+          "evidence_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        "missing_code": [],
+        "verdict": "취약 가능성 낮음"
+      },
+      "additional_context": [],
+      "independent_verification": {
+        "overall_status": "반박됨",
+        "path_check": {
+          "finding": "노드 이름이 도달하지만 %.*s가 name_len으로 제한된다.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E5"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "16진수 부분에 필요한 최대치보다 큰 16바이트 여유가 있다.",
+          "evidence_ids": [
+            "E3",
+            "E5"
+          ]
+        },
+        "reachability_check": {
+          "finding": "reg 속성으로 노드 이름을 갱신할 때 실행된다.",
+          "evidence_ids": [
+            "E1",
+            "E5"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "동적 서식이지만 정밀도와 정수 폭을 반영했다.",
+          "evidence_ids": [
+            "E2",
+            "E3",
+            "E5"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 낮음",
+        "confidence": 99,
+        "vulnerability_type": "반박된 힙 버퍼 오버플로 후보",
+        "core_basis": [
+          {
+            "claim": "문자열 접두는 정밀도로 제한되고 32비트 16진수에 16바이트를 예약한다.",
+            "evidence_ids": [
+              "E2",
+              "E3",
+              "E5"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 이름과 정수를 바꿀 수 있어도 출력 폭은 할당식 범위 안이다.",
+            "evidence_ids": [
+              "E1",
+              "E3",
+              "E5"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "할당 실패도 즉시 처리된다.",
+            "evidence_ids": [
+              "E4"
+            ]
+          }
+        ],
+        "needs_more_information": [],
+        "disposition_reason": "서식의 각 구성요소보다 넉넉한 동적 할당 확인"
+      }
+    },
+    {
+      "analysis_id": "AN-010",
+      "title": "명령행 오버레이 값의 256바이트 배열 strcpy",
+      "source_candidate_ids": [
+        "CAND-0011"
+      ],
+      "deduplication_reason": null,
+      "evidence": [
+        {
+          "id": "E1",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1852,
+          "contains": "static char target_value[256]",
+          "purpose": "고정 대상 배열",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E2",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1859,
+          "contains": "strcpy(target_value, override_value)",
+          "purpose": "무제한 복사",
+          "context_origin": "initial_context"
+        },
+        {
+          "id": "E3",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1909,
+          "contains": "dtoverlay_foreach_override_target(dtb, override_name",
+          "purpose": "래퍼 전달",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E4",
+          "file": "target/userland/host_applications/linux/apps/dtoverlay/dtoverlay_main.c",
+          "line": 416,
+          "contains": "param_val = strchr(arg, '=')",
+          "purpose": "명령행 값 추출",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E5",
+          "file": "target/userland/host_applications/linux/apps/dtoverlay/dtoverlay_main.c",
+          "line": 427,
+          "contains": "param_val++",
+          "purpose": "등호 뒤 값",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E6",
+          "file": "target/userland/host_applications/linux/apps/dtoverlay/dtoverlay_main.c",
+          "line": 446,
+          "contains": "dtoverlay_apply_override(overlay_dtb, param",
+          "purpose": "호출",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E7",
+          "file": "target/userland/host_applications/linux/apps/dtoverlay/dtoverlay_main.c",
+          "line": 448,
+          "contains": "param_val)",
+          "purpose": "값 전달",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E8",
+          "file": "target/userland/host_applications/linux/apps/dtmerge/dtmerge.c",
+          "line": 165,
+          "contains": "param_name = argv[argn++]",
+          "purpose": "별도 CLI 입력",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E9",
+          "file": "target/userland/host_applications/linux/apps/dtmerge/dtmerge.c",
+          "line": 185,
+          "contains": "dtoverlay_apply_override(overlay_dtb, param_name",
+          "purpose": "별도 호출 경로",
+          "context_origin": "additional_context"
+        },
+        {
+          "id": "E10",
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "line": 1833,
+          "contains": "if (!data_len)",
+          "purpose": "유일한 선행 단축 검사",
+          "context_origin": "initial_context"
+        }
+      ],
+      "initial_analysis": {
+        "arguments": [
+          {
+            "finding": "대상 target_value는 256바이트이며 원본 override_value 길이 제한은 strcpy 앞에 없다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E10"
+            ]
+          }
+        ],
+        "external_input_entry": {
+          "finding": "dtoverlay 앱은 인자 문자열의 등호 뒤 값을 param_val로 사용한다.",
+          "evidence_ids": [
+            "E4",
+            "E5"
+          ]
+        },
+        "data_flow": [
+          {
+            "step": "명령행 arg → param_val → dtoverlay_apply_override → dtoverlay_foreach_override_target → target_value",
+            "evidence_ids": [
+              "E4",
+              "E5",
+              "E6",
+              "E7",
+              "E3",
+              "E2"
+            ]
+          },
+          {
+            "step": "dtmerge의 argv 값도 같은 apply_override 경로로 전달된다.",
+            "evidence_ids": [
+              "E8",
+              "E9",
+              "E3",
+              "E2"
+            ]
+          }
+        ],
+        "bounds_and_termination": {
+          "finding": "strcpy 전에 override_value 길이와 256을 비교하는 검사는 인용된 경로에 없다.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E10"
+          ]
+        },
+        "safeguards": [
+          {
+            "finding": "data_len이 0이면 반환하지만 이는 override_value 문자열 길이 검사가 아니다.",
+            "evidence_ids": [
+              "E10"
+            ]
+          }
+        ],
+        "potential_problem": {
+          "finding": "256바이트 이상 널 종료 문자열이면 정적 배열 경계를 넘어 쓸 수 있다.",
+          "evidence_ids": [
+            "E1",
+            "E2"
+          ]
+        },
+        "missing_code": [
+          "실제 실행 환경의 컴파일 보호 옵션",
+          "각 CLI의 권한과 배포 방식"
+        ],
+        "verdict": "취약 가능성 높음"
+      },
+      "additional_context": [
+        {
+          "file": "target/userland/helpers/dtoverlay/dtoverlay.c",
+          "start_line": 1904,
+          "end_line": 1913,
+          "reason": "래퍼가 길이 없이 값을 전달하는지 확인"
+        },
+        {
+          "file": "target/userland/host_applications/linux/apps/dtoverlay/dtoverlay_main.c",
+          "start_line": 413,
+          "end_line": 448,
+          "reason": "명령행 값의 출처와 전달 확인"
+        },
+        {
+          "file": "target/userland/host_applications/linux/apps/dtmerge/dtmerge.c",
+          "start_line": 163,
+          "end_line": 197,
+          "reason": "두 번째 명령행 도달 경로 확인"
+        }
+      ],
+      "independent_verification": {
+        "overall_status": "확인됨",
+        "path_check": {
+          "finding": "두 CLI의 사용자 제공 값이 길이 인자 없이 같은 strcpy까지 연결된다.",
+          "evidence_ids": [
+            "E4",
+            "E5",
+            "E6",
+            "E7",
+            "E8",
+            "E9",
+            "E3",
+            "E2"
+          ]
+        },
+        "safeguard_check": {
+          "finding": "확인된 선행 검사는 data_len 0뿐이며 문자열 길이를 제한하지 않는다.",
+          "evidence_ids": [
+            "E10",
+            "E2"
+          ]
+        },
+        "reachability_check": {
+          "finding": "유효한 override 이름과 데이터가 있는 매개변수 처리에서 경로가 실행된다.",
+          "evidence_ids": [
+            "E6",
+            "E9",
+            "E10"
+          ]
+        },
+        "overstatement_check": {
+          "finding": "코드상 경계 초과 가능성만 확인했으며 실제 공격 성공이나 권한 상승은 주장하지 않는다.",
+          "evidence_ids": [
+            "E1",
+            "E2"
+          ]
+        }
+      },
+      "final_assessment": {
+        "verdict": "취약 가능성 높음",
+        "confidence": 97,
+        "vulnerability_type": "CWE-121 스택 기반 버퍼 오버플로 가능성",
+        "core_basis": [
+          {
+            "claim": "길이 제한 없는 명령행 값이 256바이트 정적 배열로 strcpy 된다.",
+            "evidence_ids": [
+              "E1",
+              "E2",
+              "E4",
+              "E5",
+              "E6",
+              "E7"
+            ]
+          },
+          {
+            "claim": "별도 dtmerge 명령행 경로도 같은 함수에 값을 전달한다.",
+            "evidence_ids": [
+              "E8",
+              "E9",
+              "E3"
+            ]
+          }
+        ],
+        "attack_conditions": [
+          {
+            "condition": "공격자가 유효한 오버레이 매개변수에 255자를 초과하는 값을 제공하고 해당 override 처리 경로를 실행해야 한다.",
+            "evidence_ids": [
+              "E4",
+              "E5",
+              "E6",
+              "E10"
+            ]
+          }
+        ],
+        "counterevidence": [
+          {
+            "claim": "빈 override 데이터는 조기에 반환되지만 값 길이 제한은 아니다.",
+            "evidence_ids": [
+              "E10"
+            ]
+          }
+        ],
+        "needs_more_information": [
+          "실행 바이너리의 스택 보호 옵션",
+          "프로그램 실행 권한과 신뢰 경계",
+          "재현 테스트는 아직 수행하지 않음"
+        ],
+        "disposition_reason": "입력부터 고정 배열까지 연결된 경로와 길이 검사 부재가 원문으로 확인됨"
+      }
+    }
+  ]
+}

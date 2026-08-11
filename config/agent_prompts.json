@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "llm_api_required": false,
+  "fallback_mode": "deterministic_tools_and_human_provided_review",
+  "agents": [
+    {
+      "id": "scanner_agent",
+      "name": "Scanner Agent",
+      "role": "C/C++ 파일에서 규칙에 등록된 위험 함수 호출을 찾아 검토 후보로 기록한다.",
+      "input_files": ["config/rules.json", "target/userland"],
+      "prompt_template": "원본 코드를 수정하지 말고 등록된 위험 함수 호출만 탐지하라. 주석과 문자열은 가능한 한 제외하고, 결과를 취약점이 아닌 review_candidate로 표시하라.",
+      "expected_response_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["summary", "candidates"],
+        "properties": {
+          "summary": {"type": "object"},
+          "candidates": {"type": "array", "items": {"type": "object", "required": ["file", "line", "function", "severity", "reason", "status"]}}
+        }
+      }
+    },
+    {
+      "id": "context_agent",
+      "name": "Context Agent",
+      "role": "후보가 포함된 함수, 호출자·피호출자, 인자와 제한된 코드 문맥을 수집한다.",
+      "input_files": ["reports/candidates.json", "target/userland"],
+      "prompt_template": "각 후보의 포함 함수와 호출 관계를 근사 수집하라. 후보당 코드 크기를 제한하고, 제외 내용과 찾지 못한 정보를 숨기지 말라.",
+      "expected_response_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["summary", "bundles"],
+        "properties": {
+          "summary": {"type": "object"},
+          "bundles": {"type": "array", "items": {"type": "object", "required": ["candidate_id", "candidate", "call_relationships", "code_segments", "missing_information"]}}
+        }
+      }
+    },
+    {
+      "id": "triage_agent",
+      "name": "Triage Agent",
+      "role": "높은 위험도 후보를 고르고 동일 함수·동일 원인의 중복을 하나의 분석 건으로 통합한다.",
+      "input_files": ["reports/context_bundles.json", "config/security_reviews.json"],
+      "prompt_template": "critical/high 후보를 우선하되 위험 함수 이름만으로 우선순위를 확정하지 말라. 동일 버퍼와 동일 원인에 연결된 후보는 하나로 묶고 통합 이유를 기록하라.",
+      "expected_response_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["selection_origin", "selected_cases"],
+        "properties": {
+          "selection_origin": {"enum": ["human_provided_review"]},
+          "selected_cases": {"type": "array", "items": {"type": "object", "required": ["analysis_id", "source_candidate_ids", "deduplication_reason"]}}
+        }
+      }
+    },
+    {
+      "id": "security_review_agent",
+      "name": "Security Review Agent",
+      "role": "입력 경로, 인자 출처, 크기 계산과 방어 로직을 코드 근거로 분석한다.",
+      "input_files": ["reports/triage_selection.json", "reports/context_bundles.json", "config/security_reviews.json"],
+      "prompt_template": "후보를 취약점이라고 단정하지 마라. 인자별 출처, 외부 입력 경로, 버퍼 크기, 문자열 종료, 길이 검사, 반대 근거를 파일·줄 번호와 함께 작성하라. 정보가 없으면 정보 부족으로 남겨라.",
+      "expected_response_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["review_origin", "reviews"],
+        "properties": {
+          "review_origin": {"enum": ["human_provided_review", "llm_generated_review"]},
+          "reviews": {"type": "array", "items": {"type": "object", "required": ["analysis_id", "initial_analysis", "evidence"]}}
+        }
+      }
+    },
+    {
+      "id": "verification_agent",
+      "name": "Verification Agent",
+      "role": "모든 인용을 원본과 대조하고 공격 경로, 방어 로직, 과장된 결론을 독립적으로 점검한다.",
+      "input_files": ["config/security_reviews.json", "target/userland"],
+      "prompt_template": "각 인용의 파일·줄 번호·코드를 원본과 대조하라. 입력에서 위험 함수까지 경로가 끊기면 지적하고, 기존 검사를 반영하며, 실제로 확인하지 않은 공격 성공이나 권한 상승 주장을 거부하라.",
+      "expected_response_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["analysis_id", "citation_check", "overall_status", "final_assessment"],
+        "properties": {
+          "citation_check": {"enum": ["확인됨", "반박됨", "추가 정보 필요"]},
+          "overall_status": {"enum": ["확인됨", "반박됨", "추가 정보 필요"]},
+          "final_assessment": {"type": "object", "required": ["verdict", "confidence"]}
+        }
+      }
+    },
+    {
+      "id": "report_agent",
+      "name": "Report Agent",
+      "role": "검증된 결과를 전체·제외·정보 부족 보고서와 실행 로그로 분리해 생성한다.",
+      "input_files": ["reports/analysis_results.json"],
+      "prompt_template": "검증 결과를 바꾸지 말고 요약하라. 취약 가능성 낮음과 정보 부족을 별도 보고서로 분리하고, 검토 출처가 human_provided_review임을 표시하라.",
+      "expected_response_schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["generated_files", "summary"],
+        "properties": {
+          "generated_files": {"type": "array", "items": {"type": "string"}},
+          "summary": {"type": "object"}
+        }
+      }
+    }
+  ]
+}

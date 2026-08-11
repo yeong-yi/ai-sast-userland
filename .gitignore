@@ -1,0 +1,13 @@
+# Downloaded Raspberry Pi UserLand source (recreate with setup_target.ps1)
+target/userland/
+
+# Generated inspection workspace and Python cache
+.presentation_tmp/
+__pycache__/
+*.py[cod]
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

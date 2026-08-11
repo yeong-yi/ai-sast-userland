@@ -1,0 +1,44 @@
+{
+  "rules": [
+    {
+      "function": "gets",
+      "severity": "critical",
+      "reason": "입력 길이를 제한할 수 없어 버퍼 오버플로가 발생할 수 있습니다."
+    },
+    {
+      "function": "strcpy",
+      "severity": "high",
+      "reason": "복사할 문자열의 길이를 확인하지 않아 대상 버퍼를 넘칠 수 있습니다."
+    },
+    {
+      "function": "strcat",
+      "severity": "high",
+      "reason": "이어 붙인 뒤의 전체 길이를 확인하지 않아 대상 버퍼를 넘칠 수 있습니다."
+    },
+    {
+      "function": "sprintf",
+      "severity": "high",
+      "reason": "출력 크기를 제한하지 않아 대상 버퍼보다 긴 문자열이 만들어질 수 있습니다."
+    },
+    {
+      "function": "scanf",
+      "severity": "high",
+      "reason": "문자열 입력의 최대 길이를 지정하지 않으면 버퍼 오버플로가 발생할 수 있습니다."
+    },
+    {
+      "function": "memcpy",
+      "severity": "medium",
+      "reason": "복사 크기나 버퍼 크기를 잘못 계산하면 범위를 벗어난 메모리 읽기 또는 쓰기가 발생할 수 있습니다."
+    },
+    {
+      "function": "malloc",
+      "severity": "medium",
+      "reason": "할당 실패를 확인하지 않거나 크기를 잘못 계산하면 널 포인터 사용 또는 메모리 손상이 발생할 수 있습니다."
+    },
+    {
+      "function": "free",
+      "severity": "medium",
+      "reason": "같은 메모리를 두 번 해제하거나 해제 후 다시 사용하면 충돌 또는 보안 문제가 발생할 수 있습니다."
+    }
+  ]
+}

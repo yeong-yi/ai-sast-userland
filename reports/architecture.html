@@ -1,0 +1,22 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>역할 기반 Multi-agent SAST 아키텍처</title>
+<style>body{margin:0;background:#f5f7fb;color:#172033;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}main{max-width:1100px;margin:auto;padding:34px 22px 70px}h1{font-size:32px}h2{margin-top:36px;border-bottom:2px solid #dbe2ea;padding-bottom:8px}h3{margin-top:26px}p,li{max-width:92ch}table{width:100%;border-collapse:collapse;background:#fff;margin:18px 0;border:1px solid #dbe2ea}th,td{padding:11px;border-bottom:1px solid #dbe2ea;text-align:left;vertical-align:top}th{background:#eaf0f7}code{background:#eef2f7;padding:2px 5px;border-radius:4px}pre.code,pre.mermaid{background:#fff;border:1px solid #dbe2ea;border-radius:10px;padding:18px;overflow:auto}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #667085;background:#fff;color:#475467}</style><script type='module'>import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,theme:'neutral'});</script></head><body><main><h1>역할 기반 Multi-agent SAST 아키텍처</h1><blockquote>외부 LLM API는 사용하지 않았습니다. 에이전트는 책임·입력·출력이 분리된 재현 가능한 워크플로 단계이며, 보안 의미 분석은 <code>human_provided_review</code>로 표시합니다.</blockquote><h2>전체 입력·출력 흐름</h2><pre class='mermaid'>flowchart LR
+    U[&quot;UserLand 654 files&quot;] --&gt; B[&quot;Batch Scanner&lt;br/&gt;3 stable batches&quot;]
+    U --&gt; S[Scanner Agent]
+    R[config/rules.json] --&gt; S
+    B --&gt; BR[batch_results.json]
+    S --&gt; CAND[&quot;candidates.json&lt;br/&gt;583 review candidates&quot;]
+    CAND --&gt; C[Context Agent]
+    U --&gt; C
+    C --&gt; CB[&quot;context_bundles.json&lt;br/&gt;583 bounded bundles&quot;]
+    CB --&gt; T[Triage Agent]
+    T --&gt; TS[&quot;triage_selection.json&lt;br/&gt;11 candidates to 10 cases&quot;]
+    TS --&gt; SR[Security Review Agent]
+    P[agent_prompts.json] --&gt; SR
+    H[human_provided_review] --&gt; SR
+    SR --&gt; V[Verification Agent]
+    U --&gt; V
+    V --&gt; AR[&quot;analysis_results.json&lt;br/&gt;62 verified citations&quot;]
+    AR --&gt; RP[Report Agent]
+    RP --&gt; OUT[Markdown + HTML + run logs]
+    OUT --&gt; VAL[Submission Validator]
+    VAL --&gt; VR[validation_report.md/html]</pre><h2>에이전트 책임과 신뢰성 장치</h2><table><thead><tr><th>Agent</th><th>핵심 책임</th><th>신뢰성 확보</th><th>실패 시 처리</th></tr></thead><tbody><tr><td>Scanner</td><td>위험 함수 호출 후보 탐지</td><td>주석·문자열 마스킹, 모든 결과를 review_candidate로 표시</td><td>읽기 오류를 파일별 기록</td></tr><tr><td>Context</td><td>함수·호출자·피호출자·인자 수집</td><td>코드 줄 제한, 누락과 제외 범위 명시</td><td>함수를 못 찾으면 missing_information 유지</td></tr><tr><td>Triage</td><td>중복 통합과 우선순위 선정</td><td>원본 후보 ID 중복 금지, high 후보 확인</td><td>비정상 ID·중복이면 파이프라인 실패</td></tr><tr><td>Security Review</td><td>입력 경로·크기·방어 로직 검토</td><td>사람 검토 출처 명시, 정보 부족 허용</td><td>근거가 없으면 확정하지 않음</td></tr><tr><td>Verification</td><td>파일·줄·인용과 과장 결론 검증</td><td>62개 인용을 원본과 대조</td><td>한 줄이라도 불일치하면 보고서 생성 실패</td></tr><tr><td>Report</td><td>전체·제외·정보 부족 보고서 생성</td><td>JSON 판정을 변경하지 않고 표현</td><td>누락 파일은 제출 검증에서 실패 표시</td></tr></tbody></table><h2>SAST 설계 시 주안점</h2><ul><li><strong>탐지와 확정 분리</strong>: 위험 함수 호출은 시작점이지 취약점 확정이 아닙니다.</li><li><strong>근거 우선</strong>: 모든 중요한 판단은 파일 경로와 줄 번호를 갖습니다.</li><li><strong>반대 근거 보존</strong>: 길이 검사와 안전한 할당을 발견하면 낮음 판정에 반영합니다.</li><li><strong>정보 부족 허용</strong>: 호출 경로나 문자열 규약을 확인할 수 없으면 추측 대신 정보 부족으로 남깁니다.</li><li><strong>실패 가시성</strong>: 읽기 오류, 누락 함수, 잘린 코드, 검증 실패를 숨기지 않습니다.</li></ul><h2>정규식 호출 관계 분석의 한계</h2><ul><li>함수 포인터, 콜백, 매크로로 만들어진 호출을 놓칠 수 있습니다.</li><li>같은 함수 이름이 여러 파일에 있으면 잘못 연결될 수 있습니다.</li><li>C++ 템플릿·오버로드·조건부 컴파일을 완전하게 해석하지 못합니다.</li><li>따라서 호출 관계의 신뢰도는 <code>regex_approximation_requires_review</code>이며 최종 검증에서 원문을 다시 봅니다.</li></ul></main></body></html>
