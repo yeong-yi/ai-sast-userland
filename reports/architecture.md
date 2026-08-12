@@ -1,4 +1,4 @@
-# 역할 기반 Multi-agent SAST 아키텍처
+# BugBori 역할 기반 Multi-agent SAST 아키텍처
 
 > 외부 LLM API는 사용하지 않았습니다. 에이전트는 책임·입력·출력이 분리된 재현 가능한 워크플로 단계이며, 보안 의미 분석은 `human_provided_review`로 표시합니다.
 

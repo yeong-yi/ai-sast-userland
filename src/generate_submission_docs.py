@@ -120,7 +120,7 @@ def main() -> int:
         batch_rows,
     )
 
-    architecture = f"""# 역할 기반 Multi-agent SAST 아키텍처
+    architecture = f"""# BugBori 역할 기반 Multi-agent SAST 아키텍처
 
 > 외부 LLM API는 사용하지 않았습니다. 에이전트는 책임·입력·출력이 분리된 재현 가능한 워크플로 단계이며, 보안 의미 분석은 `human_provided_review`로 표시합니다.
 
@@ -179,7 +179,7 @@ flowchart LR
 - C++ 템플릿·오버로드·조건부 컴파일을 완전하게 해석하지 못합니다.
 - 따라서 호출 관계의 신뢰도는 `regex_approximation_requires_review`이며 최종 검증에서 원문을 다시 봅니다.
 """
-    write_pair(reports, "architecture", "역할 기반 Multi-agent SAST 아키텍처", architecture)
+    write_pair(reports, "architecture", "BugBori 역할 기반 Multi-agent SAST 아키텍처", architecture)
 
     limits = contexts["limits"]
     token_strategy = f"""# 토큰 절약 전략과 신뢰도 보존
@@ -312,14 +312,14 @@ UserLand는 C/C++ 파일 {batch['summary']['source_files']}개, 약 {batch['summ
 """
     write_pair(reports, "differentiation_report", "기존 SAST 방식과의 차별점", differentiation)
 
-    presentation = f"""# 발표 구성안 — 9장
+    presentation = f"""# BugBori 발표 구성안 — 9장
 
 ## 1장. 문제와 목표
 
 - UserLand 규모: C/C++ {batch['summary']['source_files']}개, 약 {batch['summary']['estimated_code_lines']:,}줄
 - 문제: 전체 코드를 AI에 한 번에 넣을 수 없고 위험 함수 검색은 오탐이 많음
 - 목표: 위험한 부분부터 근거로 검토하고 불확실성을 숨기지 않는 SAST
-- 발표 한 문장: **많이 찾는 도구가 아니라, 왜 위험한지를 검증하는 도구**
+- 발표 한 문장: **BugBori는 많이 찾는 도구가 아니라, 왜 위험한지를 검증하는 도구**
 
 ## 2장. 전체 아키텍처
 

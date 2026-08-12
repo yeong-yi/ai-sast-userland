@@ -1,6 +1,6 @@
-# AI 기반 Multi-Agent SAST for Raspberry Pi UserLand
+# BugBori — AI 기반 Multi-Agent SAST for Raspberry Pi UserLand
 
-> 대규모 C/C++ 저장소를 분할 탐색하고, 위험 함수 후보를 코드 문맥과 원문 근거로 검증하는 역할 기반 SAST 워크플로
+> 버그보리는 대규모 C/C++ 저장소를 분할 탐색하고, 위험 함수 후보를 코드 문맥과 원문 근거로 검증하는 역할 기반 SAST 워크플로입니다.
 
 [GitHub 저장소](https://github.com/yeong-yi/ai-sast-userland) · [통합 제출 리포트](reports/FINAL_SUBMISSION_REPORT.md) · [발표 PDF](reports/AI_Multi_Agent_SAST_UserLand.pdf)
 

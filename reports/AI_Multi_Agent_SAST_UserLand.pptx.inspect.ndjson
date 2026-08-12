@@ -1,217 +1,217 @@
-{"kind":"deck","id":"pr/qf5fri","name":"Deck"}
-{"kind":"layout","layoutId":"b63fa52a-1caa-4054-b16a-7ee48dc83c23","name":"Master","type":"master"}
-{"kind":"layout","layoutId":"983eacab-85b2-4011-bde7-e80e689adb3e","name":"Title Slide","type":"title"}
-{"kind":"slide","id":"sl/n7307y","slide":1,"title":"SAST 과제 · 제출용 발표","textShapes":8}
-{"kind":"shape","id":"sh/qx4jyhof","slide":1,"bbox":[48,44,210,34]}
-{"kind":"textbox","id":"sh/dkv2twn6","slide":1,"text":"SAST 과제 · 제출용 발표","textPreview":"SAST 과제 · 제출용 발표","textChars":16,"textLines":1,"bbox":[58,50,190,22]}
-{"kind":"textbox","id":"sh/szm10r6l","slide":1,"text":"AI 기반\nMulti-Agent SAST","textPreview":"AI 기반 | Multi-Agent SAST","textChars":22,"textLines":2,"bbox":[48,145,910,190]}
-{"kind":"textbox","id":"sh/fmdkv65c","slide":1,"text":"for Raspberry Pi UserLand","textPreview":"for Raspberry Pi UserLand","textChars":25,"textLines":1,"bbox":[50,350,730,58]}
-{"kind":"shape","id":"sh/el4j21or","slide":1,"bbox":[48,448,1184,2]}
-{"kind":"textbox","id":"sh/1of2xwn2","slide":1,"text":"대규모 C/C++ 코드를 배치로 나누고, 후보 → 문맥 → 검증 → 보고서로 연결","textPreview":"대규모 C/C++ 코드를 배치로 나누고, 후보 → 문맥 → 검증 → 보고서로 연결","textChars":45,"textLines":1,"bbox":[48,476,1080,66]}
-{"kind":"shape","id":"sh/0n614b6x","slide":1,"bbox":[48,594,138,34]}
-{"kind":"textbox","id":"sh/nqxkz658","slide":1,"text":"654 files","textPreview":"654 files","textChars":9,"textLines":1,"bbox":[58,600,118,22]}
-{"kind":"shape","id":"sh/2poj614n","slide":1,"bbox":[198,594,170,34]}
-{"kind":"textbox","id":"sh/onm1gn21","slide":1,"text":"235,816 lines","textPreview":"235,816 lines","textChars":13,"textLines":1,"bbox":[208,600,150,22]}
-{"kind":"shape","id":"sh/p8v2psjm","slide":1,"bbox":[380,594,130,34]}
-{"kind":"textbox","id":"sh/2lkjexkv","slide":1,"text":"6 agents","textPreview":"6 agents","textChars":8,"textLines":1,"bbox":[390,600,110,22]}
-{"kind":"textbox","id":"sh/nmtkn21g","slide":1,"text":"모든 결과는 취약점 확정이 아닌 근거 기반 검토 결과","textPreview":"모든 결과는 취약점 확정이 아닌 근거 기반 검토 결과","textChars":29,"textLines":1,"bbox":[708,596,524,30]}
-{"kind":"notes","id":"nt/n7307y","slide":1,"text":""}
-{"kind":"slide","id":"sl/94e043","slide":2,"title":"01 · 문제와 목표","textShapes":14}
-{"kind":"textbox","id":"sh/twrm5sr2","slide":2,"text":"01 · 문제와 목표","textPreview":"01 · 문제와 목표","textChars":11,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/69g3ax8r","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/rap43i9c","slide":2,"text":"오래된 대규모 저장소를 어떻게 빠르고 믿을 만하게 볼 것인가?","textPreview":"오래된 대규모 저장소를 어떻게 빠르고 믿을 만하게 볼 것인가?","textChars":34,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/gzi5g7qt","slide":2,"bbox":[48,132,1184,2]}
-{"kind":"textbox","id":"sh/10rm9cre","slide":2,"text":"235,816","textPreview":"235,816","textChars":7,"textLines":1,"bbox":[52,170,380,78]}
-{"kind":"textbox","id":"sh/ex03ex8n","slide":2,"text":"줄의 C/C++ 코드","textPreview":"줄의 C/C++ 코드","textChars":11,"textLines":1,"bbox":[55,248,340,36]}
-{"kind":"textbox","id":"sh/fy947298","slide":2,"text":"583","textPreview":"583","textChars":3,"textLines":1,"bbox":[462,170,210,78]}
-{"kind":"textbox","id":"sh/w3el43qp","slide":2,"text":"초기 검토 후보","textPreview":"초기 검토 후보","textChars":8,"textLines":1,"bbox":[465,248,270,36]}
-{"kind":"textbox","id":"sh/h47mx8ra","slide":2,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[820,170,180,78]}
-{"kind":"textbox","id":"sh/xkjadk3m","slide":2,"text":"우선 분석 사례","textPreview":"우선 분석 사례","textChars":8,"textLines":1,"bbox":[823,248,260,36]}
-{"kind":"shape","id":"sh/wja94zm1","slide":2,"bbox":[48,325,1184,1]}
-{"kind":"textbox","id":"sh/vi18bulg","slide":2,"text":"단순 검색의 문제","textPreview":"단순 검색의 문제","textChars":9,"textLines":1,"bbox":[52,360,340,34]}
-{"kind":"textbox","id":"sh/ahsr2p4v","slide":2,"text":"함수 이름이 있다는 사실만으로는 실제 취약점인지 알 수 없다.\n중복·오탐·문맥 부족 때문에 사람이 모든 결과를 읽기 어렵다.","textPreview":"함수 이름이 있다는 사실만으로는 실제 취약점인지 알 수 없다. | 중복·오탐·문맥 부족 때문에 사람이 모든 결과를 읽기 어렵다.","textChars":69,"textLines":2,"bbox":[52,405,470,106]}
-{"kind":"textbox","id":"sh/5o3ah43i","slide":2,"text":"이 과제의 목표","textPreview":"이 과제의 목표","textChars":8,"textLines":1,"bbox":[654,360,340,34]}
-{"kind":"textbox","id":"sh/knu98zmd","slide":2,"text":"대규모 코드를 안정적으로 나누고, 입력 경로와 안전장치를 근거로 확인한 뒤\n'가능성 높음·낮음·정보 부족'으로 정직하게 구분한다.","textPreview":"대규모 코드를 안정적으로 나누고, 입력 경로와 안전장치를 근거로 확인한 뒤 | '가능성 높음·낮음·정보 부족'으로 정직하게 구분한다.","textChars":72,"textLines":2,"bbox":[654,405,530,106]}
-{"kind":"shape","id":"sh/jmlsfuls","slide":2,"bbox":[48,582,420,34]}
-{"kind":"textbox","id":"sh/ilcr6p47","slide":2,"text":"핵심 원칙  위험 함수 ≠ 취약점 확정","textPreview":"핵심 원칙  위험 함수 ≠ 취약점 확정","textChars":21,"textLines":1,"bbox":[58,588,400,22]}
-{"kind":"notes","id":"nt/94e043","slide":2,"text":""}
-{"kind":"slide","id":"sl/al6upr","slide":3,"title":"02 · 전체 아키텍처","textShapes":21}
-{"kind":"textbox","id":"sh/cfe9obex","slide":3,"text":"02 · 전체 아키텍처","textPreview":"02 · 전체 아키텍처","textChars":12,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/re58f6xc","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/qdw7mlwr","slide":3,"text":"역할을 분리해 한 단계의 실수를 다음 단계가 다시 확인","textPreview":"역할을 분리해 한 단계의 실수를 다음 단계가 다시 확인","textChars":30,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/pcnqdgf6","slide":3,"bbox":[48,132,1184,2]}
-{"kind":"shape","id":"sh/4bepkbel","slide":3,"bbox":[203,262,32,4]}
-{"kind":"shape","id":"sh/3al8b6x0","slide":3,"bbox":[230,252,18,24]}
-{"kind":"shape","id":"sh/29c7i1wv","slide":3,"bbox":[401,262,32,4]}
-{"kind":"shape","id":"sh/987qp0fa","slide":3,"bbox":[428,252,18,24]}
-{"kind":"shape","id":"sh/o7y9wve5","slide":3,"bbox":[599,262,32,4]}
-{"kind":"shape","id":"sh/y5g7u94b","slide":3,"bbox":[626,252,18,24]}
-{"kind":"shape","id":"sh/z6p83e5w","slide":3,"bbox":[797,262,32,4]}
-{"kind":"shape","id":"sh/0rypwjmh","slide":3,"bbox":[824,252,18,24]}
-{"kind":"shape","id":"sh/ls7q5on2","slide":3,"bbox":[995,262,32,4]}
-{"kind":"shape","id":"sh/q1w7q94f","slide":3,"bbox":[1022,252,18,24]}
-{"kind":"shape","id":"sh/b25oze50","slide":3,"bbox":[48,205,155,108]}
-{"kind":"textbox","id":"sh/c3epszm5","slide":3,"text":"Scanner","textPreview":"Scanner","textChars":7,"textLines":1,"bbox":[60,221,131,28]}
-{"kind":"textbox","id":"sh/d47q14nq","slide":3,"text":"위험 함수\n후보 탐지","textPreview":"위험 함수 | 후보 탐지","textChars":11,"textLines":2,"bbox":[60,258,131,40]}
-{"kind":"shape","id":"sh/ax072t4j","slide":3,"bbox":[246,205,155,108]}
-{"kind":"textbox","id":"sh/vy98byl4","slide":3,"text":"Context","textPreview":"Context","textChars":7,"textLines":1,"bbox":[258,221,131,28]}
-{"kind":"textbox","id":"sh/r2143qlg","slide":3,"text":"함수·인자·\n호출 관계 수집","textPreview":"함수·인자· | 호출 관계 수집","textChars":15,"textLines":2,"bbox":[258,258,131,40]}
-{"kind":"shape","id":"sh/61snulkv","slide":3,"bbox":[444,205,155,108]}
-{"kind":"textbox","id":"sh/t4jm503m","slide":3,"text":"Triage","textPreview":"Triage","textChars":6,"textLines":1,"bbox":[456,221,131,28]}
-{"kind":"textbox","id":"sh/s3a5wv21","slide":3,"text":"중복 통합·\n우선순위","textPreview":"중복 통합· | 우선순위","textChars":11,"textLines":2,"bbox":[456,258,131,40]}
-{"kind":"shape","id":"sh/f6l47als","slide":3,"bbox":[642,205,155,108]}
-{"kind":"textbox","id":"sh/e5cny5k7","slide":3,"text":"Security Review","textPreview":"Security Review","textChars":15,"textLines":1,"bbox":[654,221,131,28]}
-{"kind":"textbox","id":"sh/183m903i","slide":3,"text":"입력 경로·\n방어 로직 분석","textPreview":"입력 경로· | 방어 로직 분석","textChars":15,"textLines":2,"bbox":[654,258,131,40]}
-{"kind":"shape","id":"sh/g7u50f2x","slide":3,"bbox":[840,205,155,108]}
-{"kind":"textbox","id":"sh/3al4balo","slide":3,"text":"Verification","textPreview":"Verification","textChars":12,"textLines":1,"bbox":[852,221,131,28]}
-{"kind":"textbox","id":"sh/29cn25k3","slide":3,"text":"경로·줄번호·\n과장 여부 검증","textPreview":"경로·줄번호· | 과장 여부 검증","textChars":16,"textLines":2,"bbox":[852,258,131,40]}
-{"kind":"shape","id":"sh/0zelsfih","slide":3,"bbox":[1038,205,155,108]}
-{"kind":"textbox","id":"sh/l0nmlkz2","slide":3,"text":"Report","textPreview":"Report","textChars":6,"textLines":1,"bbox":[1050,221,131,28]}
-{"kind":"textbox","id":"sh/ydw3q50b","slide":3,"text":"JSON·MD·HTML\n결과 생성","textPreview":"JSON·MD·HTML | 결과 생성","textChars":18,"textLines":2,"bbox":[1050,258,131,40]}
-{"kind":"textbox","id":"sh/ze54zahw","slide":3,"text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[50,360,120,28]}
-{"kind":"textbox","id":"sh/cbulofi5","slide":3,"text":"target/userland + config/rules.json","textPreview":"target/userland + config/rules.json","textChars":35,"textLines":1,"bbox":[50,395,430,34]}
-{"kind":"textbox","id":"sh/dcnmxkzq","slide":3,"text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[740,360,120,28]}
-{"kind":"textbox","id":"sh/q9c3m50f","slide":3,"text":"candidates → context bundles → analysis → reports","textPreview":"candidates → context bundles → analysis → reports","textChars":49,"textLines":1,"bbox":[740,395,470,58]}
-{"kind":"shape","id":"sh/bal4vahk","slide":3,"bbox":[48,492,1184,1]}
-{"kind":"textbox","id":"sh/o7ulkvi9","slide":3,"text":"AI API 미설정","textPreview":"AI API 미설정","textChars":10,"textLines":1,"bbox":[52,530,230,32]}
-{"kind":"textbox","id":"sh/p832t0zu","slide":3,"text":"프롬프트·기대 JSON 스키마·실행 로그를 남기고, 기존 검토 데이터는 human_provided_review로 구분","textPreview":"프롬프트·기대 JSON 스키마·실행 로그를 남기고, 기존 검토 데이터는 human_provided_review로 구분","textChars":65,"textLines":1,"bbox":[280,526,920,60]}
-{"kind":"notes","id":"nt/al6upr","slide":3,"text":""}
-{"kind":"slide","id":"sl/wkuqbd","slide":4,"title":"03 · 대규모 코드 분할","textShapes":21}
-{"kind":"textbox","id":"sh/wjeh03el","slide":4,"text":"03 · 대규모 코드 분할","textPreview":"03 · 대규모 코드 분할","textChars":14,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/vi507yx0","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/ahczytwf","slide":4,"text":"세 배치로 균등하게 나누되 후보는 빠짐없이 유지","textPreview":"세 배치로 균등하게 나누되 후보는 빠짐없이 유지","textChars":26,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/9g3y5ofu","slide":4,"bbox":[48,132,1184,2]}
-{"kind":"shape","id":"sh/8fuhwjep","slide":4,"bbox":[48,154,300,34]}
-{"kind":"textbox","id":"sh/nelg3ex4","slide":4,"text":"전체 후보와 일치  583 = 583","textPreview":"전체 후보와 일치  583 = 583","textChars":20,"textLines":1,"bbox":[58,160,280,22]}
-{"kind":"shape","id":"sh/mdczu9wj","slide":4,"bbox":[100,285.04,220,274.96]}
-{"kind":"textbox","id":"sh/tc7ih8ve","slide":4,"text":"BATCH-001","textPreview":"BATCH-001","textChars":9,"textLines":1,"bbox":[112,303.04,196,30]}
-{"kind":"textbox","id":"sh/sbyh8net","slide":4,"text":"78,749줄","textPreview":"78,749줄","textChars":7,"textLines":1,"bbox":[112,355.04,196,38]}
-{"kind":"textbox","id":"sh/mhs3a5wr","slide":4,"text":"209개 파일","textPreview":"209개 파일","textChars":7,"textLines":1,"bbox":[112,404.04,196,30]}
-{"kind":"shape","id":"sh/7i14jqxc","slide":4,"bbox":[135,449.04,150,34]}
-{"kind":"textbox","id":"sh/8jalcvex","slide":4,"text":"후보 378개","textPreview":"후보 378개","textChars":7,"textLines":1,"bbox":[145,455.04,130,22]}
-{"kind":"textbox","id":"sh/9k3ml0f2","slide":4,"text":"0.756초 · 오류 0","textPreview":"0.756초 · 오류 0","textChars":13,"textLines":1,"bbox":[112,574,196,28]}
-{"kind":"shape","id":"sh/yds36lgf","slide":4,"bbox":[465,299.2,220,260.8]}
-{"kind":"textbox","id":"sh/ze14fqx0","slide":4,"text":"BATCH-002","textPreview":"BATCH-002","textChars":9,"textLines":1,"bbox":[477,317.2,196,30]}
-{"kind":"textbox","id":"sh/kfal8vel","slide":4,"text":"78,395줄","textPreview":"78,395줄","textChars":7,"textLines":1,"bbox":[477,369.2,196,38]}
-{"kind":"textbox","id":"sh/lgjmh0f6","slide":4,"text":"177개 파일","textPreview":"177개 파일","textChars":7,"textLines":1,"bbox":[477,418.2,196,30]}
-{"kind":"shape","id":"sh/i9cnipwz","slide":4,"bbox":[500,463.2,150,34]}
-{"kind":"textbox","id":"sh/jal4raxk","slide":4,"text":"후보 101개","textPreview":"후보 101개","textChars":7,"textLines":1,"bbox":[510,469.2,130,22]}
-{"kind":"textbox","id":"sh/fux0j2dw","slide":4,"text":"0.553초 · 오류 0","textPreview":"0.553초 · 오류 0","textChars":13,"textLines":1,"bbox":[477,574,196,28]}
-{"kind":"shape","id":"sh/et4jahwb","slide":4,"bbox":[830,288.12,220,271.88]}
-{"kind":"textbox","id":"sh/1wfilcv2","slide":4,"text":"BATCH-003","textPreview":"BATCH-003","textChars":9,"textLines":1,"bbox":[842,306.12,196,30]}
-{"kind":"textbox","id":"sh/0v61c7eh","slide":4,"text":"78,672줄","textPreview":"78,672줄","textChars":7,"textLines":1,"bbox":[842,358.12,196,38]}
-{"kind":"textbox","id":"sh/nix0nmds","slide":4,"text":"268개 파일","textPreview":"268개 파일","textChars":7,"textLines":1,"bbox":[842,407.12,196,30]}
-{"kind":"shape","id":"sh/2hojehc7","slide":4,"bbox":[865,452.12,150,34]}
-{"kind":"textbox","id":"sh/pkf2pwvy","slide":4,"text":"후보 104개","textPreview":"후보 104개","textChars":7,"textLines":1,"bbox":[875,458.12,130,22]}
-{"kind":"textbox","id":"sh/oj61grud","slide":4,"text":"0.554초 · 오류 0","textPreview":"0.554초 · 오류 0","textChars":13,"textLines":1,"bbox":[842,574,196,28]}
-{"kind":"textbox","id":"sh/bmhkr6d4","slide":4,"text":"코드 줄 수 기준으로 균형 분할","textPreview":"코드 줄 수 기준으로 균형 분할","textChars":17,"textLines":1,"bbox":[48,626,460,30]}
-{"kind":"textbox","id":"sh/al8ji1cj","slide":4,"text":"후보 분포는 코드 성격에 따라 달라짐","textPreview":"후보 분포는 코드 성격에 따라 달라짐","textChars":20,"textLines":1,"bbox":[760,626,470,30]}
-{"kind":"notes","id":"nt/wkuqbd","slide":4,"text":""}
-{"kind":"slide","id":"sl/udqkft","slide":5,"title":"04 · 토큰 절약 전략","textShapes":20}
-{"kind":"textbox","id":"sh/76x87ax8","slide":5,"text":"04 · 토큰 절약 전략","textPreview":"04 · 토큰 절약 전략","textChars":13,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/87690fyt","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/t8fq9kfe","slide":5,"text":"전체 코드를 보내지 않고 판단에 가까운 근거부터 수집","textPreview":"전체 코드를 보내지 않고 판단에 가까운 근거부터 수집","textChars":29,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/yh4ru5gr","slide":5,"bbox":[48,132,1184,2]}
-{"kind":"textbox","id":"sh/jix83axc","slide":5,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[52,163,58,34]}
-{"kind":"textbox","id":"sh/kj69wvyx","slide":5,"text":"후보 우선순위화","textPreview":"후보 우선순위화","textChars":8,"textLines":1,"bbox":[126,161,330,34]}
-{"kind":"textbox","id":"sh/lkfq50f2","slide":5,"text":"위험도와 근거가 높은 후보부터 분석","textPreview":"위험도와 근거가 높은 후보부터 분석","textChars":19,"textLines":1,"bbox":[480,163,700,36]}
-{"kind":"shape","id":"sh/ad4rqlgf","slide":5,"bbox":[48,213,1184,1]}
-{"kind":"textbox","id":"sh/bed8zqx0","slide":5,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[52,251,58,34]}
-{"kind":"textbox","id":"sh/zitsnets","slide":5,"text":"함수 문맥 제한","textPreview":"함수 문맥 제한","textChars":8,"textLines":1,"bbox":[126,249,330,34]}
-{"kind":"textbox","id":"sh/yhkru9s7","slide":5,"text":"후보 함수 140줄 · 묶음 최대 220줄","textPreview":"후보 함수 140줄 · 묶음 최대 220줄","textChars":23,"textLines":1,"bbox":[480,251,700,36]}
-{"kind":"shape","id":"sh/lkvapoby","slide":5,"bbox":[48,301,1184,1]}
-{"kind":"textbox","id":"sh/0jm9wjad","slide":5,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[52,339,58,34]}
-{"kind":"textbox","id":"sh/nmdsreto","slide":5,"text":"호출 관계 제한","textPreview":"호출 관계 제한","textChars":8,"textLines":1,"bbox":[126,337,330,34]}
-{"kind":"textbox","id":"sh/ml4ry9s3","slide":5,"text":"호출자 2개 · 피호출자 3개 코드 우선","textPreview":"호출자 2개 · 피호출자 3개 코드 우선","textChars":22,"textLines":1,"bbox":[480,339,700,36]}
-{"kind":"shape","id":"sh/98vatobu","slide":5,"bbox":[48,389,1184,1]}
-{"kind":"textbox","id":"sh/87m90ja9","slide":5,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[52,427,58,34]}
-{"kind":"textbox","id":"sh/3q98futk","slide":5,"text":"중복 제거","textPreview":"중복 제거","textChars":5,"textLines":1,"bbox":[126,425,330,34]}
-{"kind":"textbox","id":"sh/2p0rmpsz","slide":5,"text":"같은 원인의 후보를 한 분석 사례로 통합","textPreview":"같은 원인의 후보를 한 분석 사례로 통합","textChars":22,"textLines":1,"bbox":[480,427,700,36]}
-{"kind":"shape","id":"sh/658vuxcn","slide":5,"bbox":[48,477,1184,1]}
-{"kind":"textbox","id":"sh/r6hcn2d8","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52,515,58,34]}
-{"kind":"textbox","id":"sh/s7qdw7ut","slide":5,"text":"필요할 때만 확장","textPreview":"필요할 때만 확장","textChars":9,"textLines":1,"bbox":[126,513,330,34]}
-{"kind":"textbox","id":"sh/t8zupcvy","slide":5,"text":"부족한 함수·매크로만 추가 문맥 수집","textPreview":"부족한 함수·매크로만 추가 문맥 수집","textChars":20,"textLines":1,"bbox":[480,515,700,36]}
-{"kind":"shape","id":"sh/i1ovqdcb","slide":5,"bbox":[48,565,1184,1]}
-{"kind":"shape","id":"sh/j2hcjidw","slide":5,"bbox":[48,625,126,34]}
-{"kind":"textbox","id":"sh/43qdsnuh","slide":5,"text":"절약의 기준","textPreview":"절약의 기준","textChars":6,"textLines":1,"bbox":[58,631,106,22]}
-{"kind":"textbox","id":"sh/54zulsv2","slide":5,"text":"가까운 근거를 먼저 보되, 부족하면 추가 수집하고 끝까지 모르면 ‘정보 부족’으로 남긴다.","textPreview":"가까운 근거를 먼저 보되, 부족하면 추가 수집하고 끝까지 모르면 ‘정보 부족’으로 남긴다.","textChars":50,"textLines":1,"bbox":[190,626,1000,30]}
-{"kind":"notes","id":"nt/udqkft","slide":5,"text":""}
-{"kind":"slide","id":"sl/hb5fxj","slide":6,"title":"05 · 실제 분석 사례","textShapes":20}
-{"kind":"textbox","id":"sh/v2xc7mx8","slide":6,"text":"05 · 실제 분석 사례","textPreview":"05 · 실제 분석 사례","textChars":13,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/g3qdgret","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/h4zu9wfe","slide":6,"text":"AN-010 · CLI 입력이 256바이트 배열의 strcpy까지 도달","textPreview":"AN-010 · CLI 입력이 256바이트 배열의 strcpy까지 도달","textChars":39,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/i58vi1wz","slide":6,"bbox":[48,132,1184,2]}
-{"kind":"shape","id":"sh/3qhcb6xk","slide":6,"bbox":[48,151,390,34]}
-{"kind":"textbox","id":"sh/4rqdkbep","slide":6,"text":"검토 결과: 취약 가능성 높음 · 신뢰도 97","textPreview":"검토 결과: 취약 가능성 높음 · 신뢰도 97","textChars":25,"textLines":1,"bbox":[58,157,370,22]}
-{"kind":"shape","id":"sh/5szudgfa","slide":6,"bbox":[174,277,44,4]}
-{"kind":"shape","id":"sh/y94b6xwf","slide":6,"bbox":[213,267,18,24]}
-{"kind":"shape","id":"sh/judcz2x0","slide":6,"bbox":[386,277,44,4]}
-{"kind":"shape","id":"sh/7qlwfe5s","slide":6,"bbox":[425,267,18,24]}
-{"kind":"shape","id":"sh/mpcvm9o7","slide":6,"bbox":[598,277,44,4]}
-{"kind":"shape","id":"sh/9sneh4ny","slide":6,"bbox":[637,267,18,24]}
-{"kind":"shape","id":"sh/8redoj6d","slide":6,"bbox":[48,225,126,108]}
-{"kind":"textbox","id":"sh/zmlcbupw","slide":6,"text":"CLI 입력","textPreview":"CLI 입력","textChars":6,"textLines":1,"bbox":[60,241,102,28]}
-{"kind":"textbox","id":"sh/ylcvipob","slide":6,"text":"arg / argv","textPreview":"arg / argv","textChars":10,"textLines":1,"bbox":[60,278,102,40]}
-{"kind":"shape","id":"sh/lo3ud4nm","slide":6,"bbox":[228,225,158,108]}
-{"kind":"textbox","id":"sh/knudkz6h","slide":6,"text":"param_val","textPreview":"param_val","textChars":9,"textLines":1,"bbox":[240,241,134,28]}
-{"kind":"textbox","id":"sh/bi1c7upk","slide":6,"text":"'=' 뒤 값","textPreview":"'=' 뒤 값","textChars":7,"textLines":1,"bbox":[240,278,134,40]}
-{"kind":"shape","id":"sh/axsvepoz","slide":6,"bbox":[440,225,158,108]}
-{"kind":"textbox","id":"sh/etsvqp87","slide":6,"text":"값 적용","textPreview":"값 적용","textChars":4,"textLines":1,"bbox":[452,241,134,28]}
-{"kind":"textbox","id":"sh/fu1wju9s","slide":6,"text":"apply_override","textPreview":"apply_override","textChars":14,"textLines":1,"bbox":[452,278,134,40]}
-{"kind":"shape","id":"sh/0vadsfqx","slide":6,"bbox":[652,225,158,108]}
-{"kind":"textbox","id":"sh/1gjelkri","slide":6,"text":"strcpy","textPreview":"strcpy","textChars":6,"textLines":1,"bbox":[664,241,134,28]}
-{"kind":"textbox","id":"sh/2hsfup83","slide":6,"text":"target_value","textPreview":"target_value","textChars":12,"textLines":1,"bbox":[664,278,134,40]}
-{"kind":"shape","id":"sh/ni1wnu9o","slide":6,"bbox":[846,184,386,238]}
-{"kind":"textbox","id":"sh/ojaxwzq9","slide":6,"text":"dtoverlay.c:1852","textPreview":"dtoverlay.c:1852","textChars":16,"textLines":1,"bbox":[870,205,330,28]}
-{"kind":"textbox","id":"sh/pk3ep4ru","slide":6,"text":"static char target_value[256];","textPreview":"static char target_value[256];","textChars":30,"textLines":1,"bbox":[870,239,330,28]}
-{"kind":"textbox","id":"sh/alcfy98f","slide":6,"text":"dtoverlay.c:1859","textPreview":"dtoverlay.c:1859","textChars":16,"textLines":1,"bbox":[870,292,330,28]}
-{"kind":"textbox","id":"sh/bmlwre9k","slide":6,"text":"strcpy(target_value, override_value);","textPreview":"strcpy(target_value, override_value);","textChars":37,"textLines":1,"bbox":[870,326,330,50]}
-{"kind":"textbox","id":"sh/lgnyx8b2","slide":6,"text":"확인된 근거","textPreview":"확인된 근거","textChars":6,"textLines":1,"bbox":[52,460,220,34]}
-{"kind":"textbox","id":"sh/kfeho3ah","slide":6,"text":"dtoverlay_main.c:416–448에서 명령행 값 추출·전달\ndtmerge.c:165–185에서도 argv 값이 같은 경로로 전달\n복사 전 255자 제한 검사는 확인되지 않음","textPreview":"dtoverlay_main.c:416–448에서 명령행 값 추출·전달 | dtmerge.c:165–185에서도 argv 값이 같은 경로로 전달 | 복사 전 255자 제한 검사는 확인되지 않음","textChars":102,"textLines":3,"bbox":[52,506,590,105]}
-{"kind":"textbox","id":"sh/ze5gvytw","slide":6,"text":"아직 확인하지 못한 것","textPreview":"아직 확인하지 못한 것","textChars":12,"textLines":1,"bbox":[704,460,300,34]}
-{"kind":"textbox","id":"sh/ydwzmtsb","slide":6,"text":"동적 재현 · 실제 공격 성공 · 실행 권한·배포 조건\n따라서 ‘취약점 확정’이 아니라 코드상 가능성으로 보고","textPreview":"동적 재현 · 실제 공격 성공 · 실행 권한·배포 조건 | 따라서 ‘취약점 확정’이 아니라 코드상 가능성으로 보고","textChars":61,"textLines":2,"bbox":[704,506,490,82]}
-{"kind":"notes","id":"nt/hb5fxj","slide":6,"text":""}
-{"kind":"slide","id":"sl/9ekm4k","slide":7,"title":"06 · 차별점과 신뢰성","textShapes":19}
-{"kind":"textbox","id":"sh/nux87mto","slide":7,"text":"06 · 차별점과 신뢰성","textPreview":"06 · 차별점과 신뢰성","textChars":13,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/8v6907u9","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/9wfq9cbu","slide":7,"text":"위험 함수 탐지에서 멈추지 않고 근거와 반대 근거까지 기록","textPreview":"위험 함수 탐지에서 멈추지 않고 근거와 반대 근거까지 기록","textChars":32,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/yp47uxc7","slide":7,"bbox":[48,132,1184,2]}
-{"kind":"textbox","id":"sh/zqd832ds","slide":7,"text":"단순 grep","textPreview":"단순 grep","textChars":7,"textLines":1,"bbox":[50,174,260,34]}
-{"kind":"textbox","id":"sh/0r69w7ud","slide":7,"text":"함수 이름 발견\n→ 곧바로 위험 취급","textPreview":"함수 이름 발견 | → 곧바로 위험 취급","textChars":20,"textLines":2,"bbox":[50,220,300,70]}
-{"kind":"textbox","id":"sh/lsfq5cvi","slide":7,"text":"이 워크플로","textPreview":"이 워크플로","textChars":6,"textLines":1,"bbox":[440,174,300,34]}
-{"kind":"textbox","id":"sh/il8r61cb","slide":7,"text":"후보 → 문맥 → 중복 통합\n→ 근거 분석 → 독립 검증 → 보고","textPreview":"후보 → 문맥 → 중복 통합 | → 근거 분석 → 독립 검증 → 보고","textChars":36,"textLines":2,"bbox":[440,220,400,92]}
-{"kind":"textbox","id":"sh/jmh8f6tw","slide":7,"text":"신뢰성 장치","textPreview":"신뢰성 장치","textChars":6,"textLines":1,"bbox":[910,174,270,34]}
-{"kind":"textbox","id":"sh/rypojm9s","slide":7,"text":"경로·줄번호 대조\n정보 부족 명시\n사람 검토 데이터 구분","textPreview":"경로·줄번호 대조 | 정보 부족 명시 | 사람 검토 데이터 구분","textChars":31,"textLines":3,"bbox":[910,220,270,92]}
-{"kind":"shape","id":"sh/6xgnqh87","slide":7,"bbox":[48,354,1184,1]}
-{"kind":"textbox","id":"sh/t076lwry","slide":7,"text":"62","textPreview":"62","textChars":2,"textLines":1,"bbox":[52,402,180,72]}
-{"kind":"textbox","id":"sh/szy5srqd","slide":7,"text":"검증된 인용","textPreview":"검증된 인용","textChars":6,"textLines":1,"bbox":[52,480,220,32]}
-{"kind":"textbox","id":"sh/f29onm94","slide":7,"text":"8","textPreview":"8","textChars":1,"textLines":1,"bbox":[344,402,180,72]}
-{"kind":"textbox","id":"sh/e10nuh8j","slide":7,"text":"가능성 낮음","textPreview":"가능성 낮음","textChars":6,"textLines":1,"bbox":[344,480,220,32]}
-{"kind":"textbox","id":"sh/1or6pwru","slide":7,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[636,402,180,72]}
-{"kind":"textbox","id":"sh/gni5wrqp","slide":7,"text":"정보 부족","textPreview":"정보 부족","textChars":5,"textLines":1,"bbox":[636,480,220,32]}
-{"kind":"textbox","id":"sh/nq9or690","slide":7,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[928,402,180,72]}
-{"kind":"textbox","id":"sh/2p0ny18f","slide":7,"text":"가능성 높음","textPreview":"가능성 높음","textChars":6,"textLines":1,"bbox":[928,480,220,32]}
-{"kind":"shape","id":"sh/yl4rq5sn","slide":7,"bbox":[48,584,232,34]}
-{"kind":"textbox","id":"sh/zmd8jat8","slide":7,"text":"human_provided_review","textPreview":"human_provided_review","textChars":21,"textLines":1,"bbox":[58,590,212,22]}
-{"kind":"textbox","id":"sh/knm9sfat","slide":7,"text":"외부 LLM API 미사용 · 자동 AI 분석처럼 표시하지 않음","textPreview":"외부 LLM API 미사용 · 자동 AI 분석처럼 표시하지 않음","textChars":35,"textLines":1,"bbox":[300,589,770,30]}
-{"kind":"notes","id":"nt/9ekm4k","slide":7,"text":""}
-{"kind":"slide","id":"sl/mwptv9","slide":8,"title":"07 · 한계와 결론","textShapes":14}
-{"kind":"textbox","id":"sh/x8jqpszq","slide":8,"text":"07 · 한계와 결론","textPreview":"07 · 한계와 결론","textChars":11,"textLines":1,"bbox":[48,28,500,24]}
-{"kind":"textbox","id":"sh/a58rudgz","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
-{"kind":"textbox","id":"sh/v618nihk","slide":8,"text":"빠른 선별은 완료 — 다음은 실제 재현과 파서 정확도 개선","textPreview":"빠른 선별은 완료 — 다음은 실제 재현과 파서 정확도 개선","textChars":32,"textLines":1,"bbox":[48,64,1140,58]}
-{"kind":"shape","id":"sh/kba9k7y1","slide":8,"bbox":[48,132,1184,2]}
-{"kind":"textbox","id":"sh/5cjqtszm","slide":8,"text":"현재 결론","textPreview":"현재 결론","textChars":5,"textLines":1,"bbox":[52,166,200,30]}
-{"kind":"textbox","id":"sh/i9sryxgb","slide":8,"text":"대규모 코드도 배치와 역할 분담으로\n검토 가능한 근거 묶음으로 줄일 수 있다.","textPreview":"대규모 코드도 배치와 역할 분담으로 | 검토 가능한 근거 묶음으로 줄일 수 있다.","textChars":43,"textLines":2,"bbox":[52,207,720,112]}
-{"kind":"shape","id":"sh/ja18r2hw","slide":8,"bbox":[906,208,250,34]}
-{"kind":"textbox","id":"sh/szu9o7yd","slide":8,"text":"취약점 확정 아님","textPreview":"취약점 확정 아님","textChars":9,"textLines":1,"bbox":[916,214,230,22]}
-{"kind":"shape","id":"sh/t03qxczy","slide":8,"bbox":[48,351,1184,1]}
-{"kind":"textbox","id":"sh/pcbmdsf2","slide":8,"text":"한계","textPreview":"한계","textChars":2,"textLines":1,"bbox":[52,393,300,28]}
-{"kind":"textbox","id":"sh/obil4neh","slide":8,"text":"정규식 기반 호출 관계\n매크로·함수 포인터 해석 한계","textPreview":"정규식 기반 호출 관계 | 매크로·함수 포인터 해석 한계","textChars":29,"textLines":2,"bbox":[52,438,340,78]}
-{"kind":"textbox","id":"sh/na94b2xw","slide":8,"text":"다음 1","textPreview":"다음 1","textChars":4,"textLines":1,"bbox":[452,393,300,28]}
-{"kind":"textbox","id":"sh/29032xwb","slide":8,"text":"AN-010 최소 재현 테스트\nASan/UBSan 증거 수집","textPreview":"AN-010 최소 재현 테스트 | ASan/UBSan 증거 수집","textChars":33,"textLines":2,"bbox":[452,438,340,78]}
-{"kind":"textbox","id":"sh/x0bmhcfy","slide":8,"text":"다음 2","textPreview":"다음 2","textChars":4,"textLines":1,"bbox":[852,393,300,28]}
-{"kind":"textbox","id":"sh/cz2587ed","slide":8,"text":"AN-007의 libfdt 문자열 종료·\nDTB 검증 경로 추가 조사","textPreview":"AN-007의 libfdt 문자열 종료· | DTB 검증 경로 추가 조사","textChars":38,"textLines":2,"bbox":[852,438,340,78]}
-{"kind":"shape","id":"sh/byt4f2xs","slide":8,"bbox":[48,590,138,34]}
-{"kind":"textbox","id":"sh/axkn6xw7","slide":8,"text":"최종 메시지","textPreview":"최종 메시지","textChars":6,"textLines":1,"bbox":[58,596,118,22]}
-{"kind":"textbox","id":"sh/d4rm58fu","slide":8,"text":"찾는 속도는 AI로, 믿을 수 있는 결론은 근거와 검증으로","textPreview":"찾는 속도는 AI로, 믿을 수 있는 결론은 근거와 검증으로","textChars":32,"textLines":1,"bbox":[206,588,970,38]}
-{"kind":"notes","id":"nt/mwptv9","slide":8,"text":""}
+{"kind":"deck","id":"pr/882602","name":"Deck"}
+{"kind":"layout","layoutId":"3cb371c1-a089-471b-bbbd-2959cae1b2f3","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"5cbc2063-2b88-46bb-ae43-678e001b550d","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/spgml7","slide":1,"title":"BugBori · SAST 과제","textShapes":8}
+{"kind":"shape","id":"sh/wj2x0fqh","slide":1,"bbox":[48,44,210,34]}
+{"kind":"textbox","id":"sh/vitwra9w","slide":1,"text":"BugBori · SAST 과제","textPreview":"BugBori · SAST 과제","textChars":17,"textLines":1,"bbox":[58,50,190,22]}
+{"kind":"textbox","id":"sh/uhkfy58b","slide":1,"text":"BugBori\nAI 기반 SAST","textPreview":"BugBori | AI 기반 SAST","textChars":18,"textLines":2,"bbox":[48,145,910,190]}
+{"kind":"textbox","id":"sh/58byxkry","slide":1,"text":"for Raspberry Pi UserLand","textPreview":"for Raspberry Pi UserLand","textChars":25,"textLines":1,"bbox":[50,350,730,58]}
+{"kind":"shape","id":"sh/472x4zqd","slide":1,"bbox":[48,448,1184,2]}
+{"kind":"textbox","id":"sh/j6twvu98","slide":1,"text":"대규모 C/C++ 코드를 배치로 나누고, 후보 → 문맥 → 검증 → 보고서로 연결","textPreview":"대규모 C/C++ 코드를 배치로 나누고, 후보 → 문맥 → 검증 → 보고서로 연결","textChars":45,"textLines":1,"bbox":[48,476,1080,66]}
+{"kind":"shape","id":"sh/ilkf2p8n","slide":1,"bbox":[48,594,138,34]}
+{"kind":"textbox","id":"sh/lcrel0ru","slide":1,"text":"654 files","textPreview":"654 files","textChars":9,"textLines":1,"bbox":[58,600,118,22]}
+{"kind":"shape","id":"sh/kbixsva9","slide":1,"bbox":[198,594,170,34]}
+{"kind":"textbox","id":"sh/qhgb2lo3","slide":1,"text":"235,816 lines","textPreview":"235,816 lines","textChars":13,"textLines":1,"bbox":[208,600,150,22]}
+{"kind":"shape","id":"sh/ripcvq5o","slide":1,"bbox":[380,594,130,34]}
+{"kind":"textbox","id":"sh/cjyt4v69","slide":1,"text":"6 agents","textPreview":"6 agents","textChars":8,"textLines":1,"bbox":[390,600,110,22]}
+{"kind":"textbox","id":"sh/dk7ux0ne","slide":1,"text":"모든 결과는 취약점 확정이 아닌 근거 기반 검토 결과","textPreview":"모든 결과는 취약점 확정이 아닌 근거 기반 검토 결과","textChars":29,"textLines":1,"bbox":[708,596,524,30]}
+{"kind":"notes","id":"nt/spgml7","slide":1,"text":""}
+{"kind":"slide","id":"sl/1lmub1","slide":2,"title":"01 · 문제와 목표","textShapes":14}
+{"kind":"textbox","id":"sh/kbmdkvmp","slide":2,"text":"01 · 문제와 목표","textPreview":"01 · 문제와 목표","textChars":11,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/jadcbq54","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/ip4vil4j","slide":2,"text":"오래된 대규모 저장소를 어떻게 빠르고 믿을 만하게 볼 것인가?","textPreview":"오래된 대규모 저장소를 어떻게 빠르고 믿을 만하게 볼 것인가?","textChars":34,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/xovu90ny","slide":2,"bbox":[48,132,1184,2]}
+{"kind":"textbox","id":"sh/wnmdgvmd","slide":2,"text":"235,816","textPreview":"235,816","textChars":7,"textLines":1,"bbox":[52,170,380,78]}
+{"kind":"textbox","id":"sh/vmtcnq58","slide":2,"text":"줄의 C/C++ 코드","textPreview":"줄의 C/C++ 코드","textChars":11,"textLines":1,"bbox":[55,248,340,36]}
+{"kind":"textbox","id":"sh/alkvel4n","slide":2,"text":"583","textPreview":"583","textChars":3,"textLines":1,"bbox":[462,170,210,78]}
+{"kind":"textbox","id":"sh/1kfelkni","slide":2,"text":"초기 검토 후보","textPreview":"초기 검토 후보","textChars":8,"textLines":1,"bbox":[465,248,270,36]}
+{"kind":"textbox","id":"sh/gj6dsfmx","slide":2,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[820,170,180,78]}
+{"kind":"textbox","id":"sh/exwjipsr","slide":2,"text":"우선 분석 사례","textPreview":"우선 분석 사례","textChars":8,"textLines":1,"bbox":[823,248,260,36]}
+{"kind":"shape","id":"sh/zy50butc","slide":2,"bbox":[48,325,1184,1]}
+{"kind":"textbox","id":"sh/0ze1kfax","slide":2,"text":"단순 검색의 문제","textPreview":"단순 검색의 문제","textChars":9,"textLines":1,"bbox":[52,360,340,34]}
+{"kind":"textbox","id":"sh/107idkri","slide":2,"text":"함수 이름이 있다는 사실만으로는 실제 취약점인지 알 수 없다.\n중복·오탐·문맥 부족 때문에 사람이 모든 결과를 읽기 어렵다.","textPreview":"함수 이름이 있다는 사실만으로는 실제 취약점인지 알 수 없다. | 중복·오탐·문맥 부족 때문에 사람이 모든 결과를 읽기 어렵다.","textChars":69,"textLines":2,"bbox":[52,405,470,106]}
+{"kind":"textbox","id":"sh/q9wje5sv","slide":2,"text":"이 과제의 목표","textPreview":"이 과제의 목표","textChars":8,"textLines":1,"bbox":[654,360,340,34]}
+{"kind":"textbox","id":"sh/ra507atg","slide":2,"text":"대규모 코드를 안정적으로 나누고, 입력 경로와 안전장치를 근거로 확인한 뒤\n'가능성 높음·낮음·정보 부족'으로 정직하게 구분한다.","textPreview":"대규모 코드를 안정적으로 나누고, 입력 경로와 안전장치를 근거로 확인한 뒤 | '가능성 높음·낮음·정보 부족'으로 정직하게 구분한다.","textChars":72,"textLines":2,"bbox":[654,405,530,106]}
+{"kind":"shape","id":"sh/cve1gfa1","slide":2,"bbox":[48,582,420,34]}
+{"kind":"textbox","id":"sh/dwni9kbm","slide":2,"text":"핵심 원칙  위험 함수 ≠ 취약점 확정","textPreview":"핵심 원칙  위험 함수 ≠ 취약점 확정","textChars":21,"textLines":1,"bbox":[58,588,400,22]}
+{"kind":"notes","id":"nt/1lmub1","slide":2,"text":""}
+{"kind":"slide","id":"sl/13j6t9","slide":3,"title":"02 · 전체 아키텍처","textShapes":21}
+{"kind":"textbox","id":"sh/7ixsz2xg","slide":3,"text":"02 · 전체 아키텍처","textPreview":"02 · 전체 아키텍처","textChars":12,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/8j6ts7y1","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/94fa1sf6","slide":3,"text":"역할을 분리해 한 단계의 실수를 다음 단계가 다시 확인","textPreview":"역할을 분리해 한 단계의 실수를 다음 단계가 다시 확인","textChars":30,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/u5obuxgr","slide":3,"bbox":[48,132,1184,2]}
+{"kind":"shape","id":"sh/v6xs32xc","slide":3,"bbox":[203,262,32,4]}
+{"kind":"shape","id":"sh/w76tw7yx","slide":3,"bbox":[230,252,18,24]}
+{"kind":"shape","id":"sh/h8fa5cfi","slide":3,"bbox":[401,262,32,4]}
+{"kind":"shape","id":"sh/q9kridgn","slide":3,"bbox":[428,252,18,24]}
+{"kind":"shape","id":"sh/batsrix8","slide":3,"bbox":[599,262,32,4]}
+{"kind":"shape","id":"sh/7q5ozep4","slide":3,"bbox":[626,252,18,24]}
+{"kind":"shape","id":"sh/65w7q9oj","slide":3,"bbox":[797,262,32,4]}
+{"kind":"shape","id":"sh/tsn61o7a","slide":3,"bbox":[824,252,18,24]}
+{"kind":"shape","id":"sh/srepsj6p","slide":3,"bbox":[995,262,32,4]}
+{"kind":"shape","id":"sh/j2lovep8","slide":3,"bbox":[1022,252,18,24]}
+{"kind":"shape","id":"sh/i1c7m9on","slide":3,"bbox":[48,205,155,108]}
+{"kind":"textbox","id":"sh/54n6x47e","slide":3,"text":"Scanner","textPreview":"Scanner","textChars":7,"textLines":1,"bbox":[60,221,131,28]}
+{"kind":"textbox","id":"sh/k3upoz6t","slide":3,"text":"위험 함수\n후보 탐지","textPreview":"위험 함수 | 후보 탐지","textChars":11,"textLines":2,"bbox":[60,258,131,40]}
+{"kind":"shape","id":"sh/vylorupw","slide":3,"bbox":[246,205,155,108]}
+{"kind":"textbox","id":"sh/axcnipor","slide":3,"text":"Context","textPreview":"Context","textChars":7,"textLines":1,"bbox":[258,221,131,28]}
+{"kind":"textbox","id":"sh/yts7apsj","slide":3,"text":"함수·인자·\n호출 관계 수집","textPreview":"함수·인자· | 호출 관계 수집","textChars":15,"textLines":2,"bbox":[258,258,131,40]}
+{"kind":"shape","id":"sh/zu183u94","slide":3,"bbox":[444,205,155,108]}
+{"kind":"textbox","id":"sh/0vapcza9","slide":3,"text":"Triage","textPreview":"Triage","textChars":6,"textLines":1,"bbox":[456,221,131,28]}
+{"kind":"textbox","id":"sh/lwjq54ru","slide":3,"text":"중복 통합·\n우선순위","textPreview":"중복 통합· | 우선순위","textChars":11,"textLines":2,"bbox":[456,258,131,40]}
+{"kind":"shape","id":"sh/mxc7e9sf","slide":3,"bbox":[642,205,155,108]}
+{"kind":"textbox","id":"sh/nyl87u90","slide":3,"text":"Security Review","textPreview":"Security Review","textChars":15,"textLines":1,"bbox":[654,221,131,28]}
+{"kind":"textbox","id":"sh/8zupgzql","slide":3,"text":"입력 경로·\n방어 로직 분석","textPreview":"입력 경로· | 방어 로직 분석","textChars":15,"textLines":2,"bbox":[654,258,131,40]}
+{"kind":"shape","id":"sh/903q94r6","slide":3,"bbox":[840,205,155,108]}
+{"kind":"textbox","id":"sh/a1c7i98r","slide":3,"text":"Verification","textPreview":"Verification","textChars":12,"textLines":1,"bbox":[852,221,131,28]}
+{"kind":"textbox","id":"sh/v2l8be9w","slide":3,"text":"경로·줄번호·\n과장 여부 검증","textPreview":"경로·줄번호· | 과장 여부 검증","textChars":16,"textLines":2,"bbox":[852,258,131,40]}
+{"kind":"shape","id":"sh/5w7a18be","slide":3,"bbox":[1038,205,155,108]}
+{"kind":"textbox","id":"sh/kvet83ut","slide":3,"text":"Report","textPreview":"Report","textChars":6,"textLines":1,"bbox":[1050,221,131,28]}
+{"kind":"textbox","id":"sh/ju5szyt8","slide":3,"text":"JSON·MD·HTML\n결과 생성","textPreview":"JSON·MD·HTML | 결과 생성","textChars":18,"textLines":2,"bbox":[1050,258,131,40]}
+{"kind":"textbox","id":"sh/itwb6tcn","slide":3,"text":"입력","textPreview":"입력","textChars":2,"textLines":1,"bbox":[50,360,120,28]}
+{"kind":"textbox","id":"sh/tk7a5sba","slide":3,"text":"target/userland + config/rules.json","textPreview":"target/userland + config/rules.json","textChars":35,"textLines":1,"bbox":[50,395,430,34]}
+{"kind":"textbox","id":"sh/sjytcnap","slide":3,"text":"출력","textPreview":"출력","textChars":2,"textLines":1,"bbox":[740,360,120,28]}
+{"kind":"textbox","id":"sh/7ips3it4","slide":3,"text":"candidates → context bundles → analysis → reports","textPreview":"candidates → context bundles → analysis → reports","textChars":49,"textLines":1,"bbox":[740,395,470,58]}
+{"kind":"shape","id":"sh/6xgbadsz","slide":3,"bbox":[48,492,1184,1]}
+{"kind":"textbox","id":"sh/1ora9sbm","slide":3,"text":"AI API 미설정","textPreview":"AI API 미설정","textChars":10,"textLines":1,"bbox":[52,530,230,32]}
+{"kind":"textbox","id":"sh/gnitgna1","slide":3,"text":"프롬프트·기대 JSON 스키마·실행 로그를 남기고, 기존 검토 데이터는 human_provided_review로 구분","textPreview":"프롬프트·기대 JSON 스키마·실행 로그를 남기고, 기존 검토 데이터는 human_provided_review로 구분","textChars":65,"textLines":1,"bbox":[280,526,920,60]}
+{"kind":"notes","id":"nt/13j6t9","slide":3,"text":""}
+{"kind":"slide","id":"sl/yqgh29","slide":4,"title":"03 · 대규모 코드 분할","textShapes":21}
+{"kind":"textbox","id":"sh/udkjihs7","slide":4,"text":"03 · 대규모 코드 분할","textPreview":"03 · 대규모 코드 분할","textChars":14,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/h0b2tcry","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/wz21krad","slide":4,"text":"세 배치로 균등하게 나누되 후보는 빠짐없이 유지","textPreview":"세 배치로 균등하게 나누되 후보는 빠짐없이 유지","textChars":26,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/j2tkvm94","slide":4,"bbox":[48,132,1184,2]}
+{"kind":"shape","id":"sh/i1kjmhsj","slide":4,"bbox":[48,154,300,34]}
+{"kind":"textbox","id":"sh/54v2xwru","slide":4,"text":"전체 후보와 일치  583 = 583","textPreview":"전체 후보와 일치  583 = 583","textChars":20,"textLines":1,"bbox":[58,160,280,22]}
+{"kind":"shape","id":"sh/43m1ora9","slide":4,"bbox":[100,285.04,220,274.96]}
+{"kind":"textbox","id":"sh/z690j29k","slide":4,"text":"BATCH-001","textPreview":"BATCH-001","textChars":9,"textLines":1,"bbox":[112,303.04,196,30]}
+{"kind":"textbox","id":"sh/y50jaxsz","slide":4,"text":"78,749줄","textPreview":"78,749줄","textChars":7,"textLines":1,"bbox":[112,355.04,196,38]}
+{"kind":"textbox","id":"sh/wfy1knmd","slide":4,"text":"209개 파일","textPreview":"209개 파일","textChars":7,"textLines":1,"bbox":[112,404.04,196,30]}
+{"kind":"shape","id":"sh/x0r2dsny","slide":4,"bbox":[135,449.04,150,34]}
+{"kind":"textbox","id":"sh/adgjid4n","slide":4,"text":"후보 378개","textPreview":"후보 378개","textChars":7,"textLines":1,"bbox":[145,455.04,130,22]}
+{"kind":"textbox","id":"sh/bepkbi58","slide":4,"text":"0.756초 · 오류 0","textPreview":"0.756초 · 오류 0","textChars":13,"textLines":1,"bbox":[112,574,196,28]}
+{"kind":"shape","id":"sh/k3i1onmp","slide":4,"bbox":[465,299.2,220,260.8]}
+{"kind":"textbox","id":"sh/l4r2hsna","slide":4,"text":"BATCH-002","textPreview":"BATCH-002","textChars":9,"textLines":1,"bbox":[477,317.2,196,30]}
+{"kind":"textbox","id":"sh/y10jmd4j","slide":4,"text":"78,395줄","textPreview":"78,395줄","textChars":7,"textLines":1,"bbox":[477,369.2,196,38]}
+{"kind":"textbox","id":"sh/j29kfi54","slide":4,"text":"177개 파일","textPreview":"177개 파일","textChars":7,"textLines":1,"bbox":[477,418.2,196,30]}
+{"kind":"shape","id":"sh/07e1c36l","slide":4,"bbox":[500,463.2,150,34]}
+{"kind":"textbox","id":"sh/18n25onq","slide":4,"text":"후보 101개","textPreview":"후보 101개","textChars":7,"textLines":1,"bbox":[510,469.2,130,22]}
+{"kind":"textbox","id":"sh/h4fi9kfu","slide":4,"text":"0.553초 · 오류 0","textPreview":"0.553초 · 오류 0","textChars":13,"textLines":1,"bbox":[477,574,196,28]}
+{"kind":"shape","id":"sh/g36h0fy9","slide":4,"bbox":[830,288.12,220,271.88]}
+{"kind":"textbox","id":"sh/f2x07axo","slide":4,"text":"BATCH-003","textPreview":"BATCH-003","textChars":9,"textLines":1,"bbox":[842,306.12,196,30]}
+{"kind":"textbox","id":"sh/u1ozypg3","slide":4,"text":"78,672줄","textPreview":"78,672줄","textChars":7,"textLines":1,"bbox":[842,358.12,196,38]}
+{"kind":"textbox","id":"sh/p8zid4fq","slide":4,"text":"268개 파일","textPreview":"268개 파일","textChars":7,"textLines":1,"bbox":[842,407.12,196,30]}
+{"kind":"shape","id":"sh/o7qh4zy5","slide":4,"bbox":[865,452.12,150,34]}
+{"kind":"textbox","id":"sh/36h0buxk","slide":4,"text":"후보 104개","textPreview":"후보 104개","textChars":7,"textLines":1,"bbox":[875,458.12,130,22]}
+{"kind":"textbox","id":"sh/258z2pgf","slide":4,"text":"0.554초 · 오류 0","textPreview":"0.554초 · 오류 0","textChars":13,"textLines":1,"bbox":[842,574,196,28]}
+{"kind":"textbox","id":"sh/dwjih4f2","slide":4,"text":"코드 줄 수 기준으로 균형 분할","textPreview":"코드 줄 수 기준으로 균형 분할","textChars":17,"textLines":1,"bbox":[48,626,460,30]}
+{"kind":"textbox","id":"sh/cvqh8zyh","slide":4,"text":"후보 분포는 코드 성격에 따라 달라짐","textPreview":"후보 분포는 코드 성격에 따라 달라짐","textChars":20,"textLines":1,"bbox":[760,626,470,30]}
+{"kind":"notes","id":"nt/yqgh29","slide":4,"text":""}
+{"kind":"slide","id":"sl/zkoxkh","slide":5,"title":"04 · 토큰 절약 전략","textShapes":20}
+{"kind":"textbox","id":"sh/7ypgri9k","slide":5,"text":"04 · 토큰 절약 전략","textPreview":"04 · 토큰 절약 전략","textChars":13,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/szyxkna5","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/t07ytsrq","slide":5,"text":"전체 코드를 보내지 않고 판단에 가까운 근거부터 수집","textPreview":"전체 코드를 보내지 않고 판단에 가까운 근거부터 수집","textChars":29,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/i9wfeds3","slide":5,"bbox":[48,132,1184,2]}
+{"kind":"textbox","id":"sh/ja5gny9o","slide":5,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[52,163,58,34]}
+{"kind":"textbox","id":"sh/kvyxg3a9","slide":5,"text":"후보 우선순위화","textPreview":"후보 우선순위화","textChars":8,"textLines":1,"bbox":[126,161,330,34]}
+{"kind":"textbox","id":"sh/5w7yp8re","slide":5,"text":"위험도와 근거가 높은 후보부터 분석","textPreview":"위험도와 근거가 높은 후보부터 분석","textChars":19,"textLines":1,"bbox":[480,163,700,36]}
+{"kind":"shape","id":"sh/250fqxs7","slide":5,"bbox":[48,213,1184,1]}
+{"kind":"textbox","id":"sh/369gz29s","slide":5,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[52,251,58,34]}
+{"kind":"textbox","id":"sh/r25wzqhc","slide":5,"text":"함수 문맥 제한","textPreview":"함수 문맥 제한","textChars":8,"textLines":1,"bbox":[126,249,330,34]}
+{"kind":"textbox","id":"sh/61wvq50r","slide":5,"text":"후보 함수 140줄 · 묶음 최대 220줄","textPreview":"후보 함수 140줄 · 묶음 최대 220줄","textChars":23,"textLines":1,"bbox":[480,251,700,36]}
+{"kind":"shape","id":"sh/t4ne10zi","slide":5,"bbox":[48,301,1184,1]}
+{"kind":"textbox","id":"sh/s3edsvix","slide":5,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[52,339,58,34]}
+{"kind":"textbox","id":"sh/f6pw3ah8","slide":5,"text":"호출 관계 제한","textPreview":"호출 관계 제한","textChars":8,"textLines":1,"bbox":[126,337,330,34]}
+{"kind":"textbox","id":"sh/e5gvu50n","slide":5,"text":"호출자 2개 · 피호출자 3개 코드 우선","textPreview":"호출자 2개 · 피호출자 3개 코드 우선","textChars":22,"textLines":1,"bbox":[480,339,700,36]}
+{"kind":"shape","id":"sh/187e5kze","slide":5,"bbox":[48,389,1184,1]}
+{"kind":"textbox","id":"sh/g7ydwfit","slide":5,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[52,427,58,34]}
+{"kind":"textbox","id":"sh/3apw7ahk","slide":5,"text":"중복 제거","textPreview":"중복 제거","textChars":5,"textLines":1,"bbox":[126,425,330,34]}
+{"kind":"textbox","id":"sh/29gfyp0z","slide":5,"text":"같은 원인의 후보를 한 분석 사례로 통합","textPreview":"같은 원인의 후보를 한 분석 사례로 통합","textChars":22,"textLines":1,"bbox":[480,427,700,36]}
+{"kind":"shape","id":"sh/y5kzq9k7","slide":5,"bbox":[48,477,1184,1]}
+{"kind":"textbox","id":"sh/zqtgze1s","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[52,515,58,34]}
+{"kind":"textbox","id":"sh/kr2hsj2d","slide":5,"text":"필요할 때만 확장","textPreview":"필요할 때만 확장","textChars":9,"textLines":1,"bbox":[126,513,330,34]}
+{"kind":"textbox","id":"sh/lsby1oji","slide":5,"text":"부족한 함수·매크로만 추가 문맥 수집","textPreview":"부족한 함수·매크로만 추가 문맥 수집","textChars":20,"textLines":1,"bbox":[480,515,700,36]}
+{"kind":"shape","id":"sh/a10zm9kv","slide":5,"bbox":[48,565,1184,1]}
+{"kind":"shape","id":"sh/b29gve1g","slide":5,"bbox":[48,625,126,34]}
+{"kind":"textbox","id":"sh/c3ihoj21","slide":5,"text":"절약의 기준","textPreview":"절약의 기준","textChars":6,"textLines":1,"bbox":[58,631,106,22]}
+{"kind":"textbox","id":"sh/x4ryxojm","slide":5,"text":"가까운 근거를 먼저 보되, 부족하면 추가 수집하고 끝까지 모르면 ‘정보 부족’으로 남긴다.","textPreview":"가까운 근거를 먼저 보되, 부족하면 추가 수집하고 끝까지 모르면 ‘정보 부족’으로 남긴다.","textChars":50,"textLines":1,"bbox":[190,626,1000,30]}
+{"kind":"notes","id":"nt/zkoxkh","slide":5,"text":""}
+{"kind":"slide","id":"sl/fi2ko9","slide":6,"title":"05 · 실제 분석 사례","textShapes":20}
+{"kind":"textbox","id":"sh/8napkv6p","slide":6,"text":"05 · 실제 분석 사례","textPreview":"05 · 실제 분석 사례","textChars":13,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/nm18rqp4","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/m1s7iloz","slide":6,"text":"AN-010 · CLI 입력이 256바이트 배열의 strcpy까지 도달","textPreview":"AN-010 · CLI 입력이 256바이트 배열의 strcpy까지 도달","textChars":39,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/xs3qx07m","slide":6,"bbox":[48,132,1184,2]}
+{"kind":"shape","id":"sh/wrupof61","slide":6,"bbox":[48,151,390,34]}
+{"kind":"textbox","id":"sh/vq18vapg","slide":6,"text":"검토 결과: 취약 가능성 높음 · 신뢰도 97","textPreview":"검토 결과: 취약 가능성 높음 · 신뢰도 97","textChars":25,"textLines":1,"bbox":[58,157,370,22]}
+{"kind":"shape","id":"sh/aps7m5ov","slide":6,"bbox":[174,277,44,4]}
+{"kind":"shape","id":"sh/dwzqlg72","slide":6,"bbox":[213,267,18,24]}
+{"kind":"shape","id":"sh/cvqpcb6h","slide":6,"bbox":[386,277,44,4]}
+{"kind":"shape","id":"sh/e1wr2xs3","slide":6,"bbox":[425,267,18,24]}
+{"kind":"shape","id":"sh/f258bi9o","slide":6,"bbox":[598,277,44,4]}
+{"kind":"shape","id":"sh/g3e94na9","slide":6,"bbox":[637,267,18,24]}
+{"kind":"shape","id":"sh/14nadsre","slide":6,"bbox":[48,225,126,108]}
+{"kind":"textbox","id":"sh/25wr6xsz","slide":6,"text":"CLI 입력","textPreview":"CLI 입력","textChars":6,"textLines":1,"bbox":[60,241,102,28]}
+{"kind":"textbox","id":"sh/nqpsf29k","slide":6,"text":"arg / argv","textPreview":"arg / argv","textChars":10,"textLines":1,"bbox":[60,278,102,40]}
+{"kind":"shape","id":"sh/ory987a5","slide":6,"bbox":[228,225,158,108]}
+{"kind":"textbox","id":"sh/ps7ahcrq","slide":6,"text":"param_val","textPreview":"param_val","textChars":9,"textLines":1,"bbox":[240,241,134,28]}
+{"kind":"textbox","id":"sh/atgrahsb","slide":6,"text":"'=' 뒤 값","textPreview":"'=' 뒤 값","textChars":7,"textLines":1,"bbox":[240,278,134,40]}
+{"kind":"shape","id":"sh/bupsj29w","slide":6,"bbox":[440,225,158,108]}
+{"kind":"textbox","id":"sh/7y98rmpo","slide":6,"text":"값 적용","textPreview":"값 적용","textChars":4,"textLines":1,"bbox":[452,241,134,28]}
+{"kind":"textbox","id":"sh/mxgryhoj","slide":6,"text":"apply_override","textPreview":"apply_override","textChars":14,"textLines":1,"bbox":[452,278,134,40]}
+{"kind":"shape","id":"sh/90rqtc7u","slide":6,"bbox":[652,225,158,108]}
+{"kind":"textbox","id":"sh/8zi90769","slide":6,"text":"strcpy","textPreview":"strcpy","textChars":6,"textLines":1,"bbox":[664,241,134,28]}
+{"kind":"textbox","id":"sh/zup8n2ps","slide":6,"text":"target_value","textPreview":"target_value","textChars":12,"textLines":1,"bbox":[664,278,134,40]}
+{"kind":"shape","id":"sh/ytg7ux87","slide":6,"bbox":[846,184,386,238]}
+{"kind":"textbox","id":"sh/lw7qpc7y","slide":6,"text":"dtoverlay.c:1852","textPreview":"dtoverlay.c:1852","textChars":16,"textLines":1,"bbox":[870,205,330,28]}
+{"kind":"textbox","id":"sh/kvypw76d","slide":6,"text":"static char target_value[256];","textPreview":"static char target_value[256];","textChars":30,"textLines":1,"bbox":[870,239,330,28]}
+{"kind":"textbox","id":"sh/b6p8j2pw","slide":6,"text":"dtoverlay.c:1859","textPreview":"dtoverlay.c:1859","textChars":16,"textLines":1,"bbox":[870,292,330,28]}
+{"kind":"textbox","id":"sh/a5w7qx8b","slide":6,"text":"strcpy(target_value, override_value);","textPreview":"strcpy(target_value, override_value);","textChars":37,"textLines":1,"bbox":[870,326,330,50]}
+{"kind":"textbox","id":"sh/gbu5036t","slide":6,"text":"확인된 근거","textPreview":"확인된 근거","textChars":6,"textLines":1,"bbox":[52,460,220,34]}
+{"kind":"textbox","id":"sh/1c36tone","slide":6,"text":"dtoverlay_main.c:416–448에서 명령행 값 추출·전달\ndtmerge.c:165–185에서도 argv 값이 같은 경로로 전달\n복사 전 255자 제한 검사는 확인되지 않음","textPreview":"dtoverlay_main.c:416–448에서 명령행 값 추출·전달 | dtmerge.c:165–185에서도 argv 값이 같은 경로로 전달 | 복사 전 255자 제한 검사는 확인되지 않음","textChars":102,"textLines":3,"bbox":[52,506,590,105]}
+{"kind":"textbox","id":"sh/e9cnyto3","slide":6,"text":"아직 확인하지 못한 것","textPreview":"아직 확인하지 못한 것","textChars":12,"textLines":1,"bbox":[704,460,300,34]}
+{"kind":"textbox","id":"sh/falory5o","slide":6,"text":"동적 재현 · 실제 공격 성공 · 실행 권한·배포 조건\n따라서 ‘취약점 확정’이 아니라 코드상 가능성으로 보고","textPreview":"동적 재현 · 실제 공격 성공 · 실행 권한·배포 조건 | 따라서 ‘취약점 확정’이 아니라 코드상 가능성으로 보고","textChars":61,"textLines":2,"bbox":[704,506,490,82]}
+{"kind":"notes","id":"nt/fi2ko9","slide":6,"text":""}
+{"kind":"slide","id":"sl/3estbt","slide":7,"title":"06 · 차별점과 신뢰성","textShapes":19}
+{"kind":"textbox","id":"sh/tsza9cfq","slide":7,"text":"06 · 차별점과 신뢰성","textPreview":"06 · 차별점과 신뢰성","textChars":13,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/6pobyxgz","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/7qxs72xk","slide":7,"text":"위험 함수 탐지에서 멈추지 않고 근거와 반대 근거까지 기록","textPreview":"위험 함수 탐지에서 멈추지 않고 근거와 반대 근거까지 기록","textChars":32,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/gvqt4ry1","slide":7,"bbox":[48,132,1184,2]}
+{"kind":"textbox","id":"sh/hwzadcfm","slide":7,"text":"단순 grep","textPreview":"단순 grep","textChars":7,"textLines":1,"bbox":[50,174,260,34]}
+{"kind":"textbox","id":"sh/ut8b2hgb","slide":7,"text":"함수 이름 발견\n→ 곧바로 위험 취급","textPreview":"함수 이름 발견 | → 곧바로 위험 취급","textChars":20,"textLines":2,"bbox":[50,220,300,70]}
+{"kind":"textbox","id":"sh/vuhsbmxg","slide":7,"text":"이 워크플로","textPreview":"이 워크플로","textChars":6,"textLines":1,"bbox":[440,174,300,34]}
+{"kind":"textbox","id":"sh/wzm9snyx","slide":7,"text":"후보 → 문맥 → 중복 통합\n→ 근거 분석 → 독립 검증 → 보고","textPreview":"후보 → 문맥 → 중복 통합 | → 근거 분석 → 독립 검증 → 보고","textChars":36,"textLines":2,"bbox":[440,220,400,92]}
+{"kind":"textbox","id":"sh/x0fa1sfi","slide":7,"text":"신뢰성 장치","textPreview":"신뢰성 장치","textChars":6,"textLines":1,"bbox":[910,174,270,34]}
+{"kind":"textbox","id":"sh/t0b25wr2","slide":7,"text":"경로·줄번호 대조\n정보 부족 명시\n사람 검토 데이터 구분","textPreview":"경로·줄번호 대조 | 정보 부족 명시 | 사람 검토 데이터 구분","textChars":31,"textLines":3,"bbox":[910,220,270,92]}
+{"kind":"shape","id":"sh/sf21wrah","slide":7,"bbox":[48,354,1184,1]}
+{"kind":"textbox","id":"sh/retk3m9w","slide":7,"text":"62","textPreview":"62","textChars":2,"textLines":1,"bbox":[52,402,180,72]}
+{"kind":"textbox","id":"sh/6dkjuhsb","slide":7,"text":"검증된 인용","textPreview":"검증된 인용","textChars":6,"textLines":1,"bbox":[52,480,220,32]}
+{"kind":"textbox","id":"sh/14v29wry","slide":7,"text":"8","textPreview":"8","textChars":1,"textLines":1,"bbox":[344,402,180,72]}
+{"kind":"textbox","id":"sh/g3210rad","slide":7,"text":"가능성 낮음","textPreview":"가능성 낮음","textChars":6,"textLines":1,"bbox":[344,480,220,32]}
+{"kind":"textbox","id":"sh/f2tk7698","slide":7,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[636,402,180,72]}
+{"kind":"textbox","id":"sh/e1kjy1sn","slide":7,"text":"정보 부족","textPreview":"정보 부족","textChars":5,"textLines":1,"bbox":[636,480,220,32]}
+{"kind":"textbox","id":"sh/p8v2dgra","slide":7,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[928,402,180,72]}
+{"kind":"textbox","id":"sh/o7ml4bap","slide":7,"text":"가능성 높음","textPreview":"가능성 높음","textChars":6,"textLines":1,"bbox":[928,480,220,32]}
+{"kind":"shape","id":"sh/8nedwjmx","slide":7,"bbox":[48,584,232,34]}
+{"kind":"textbox","id":"sh/9onepo3i","slide":7,"text":"human_provided_review","textPreview":"human_provided_review","textChars":21,"textLines":1,"bbox":[58,590,212,22]}
+{"kind":"textbox","id":"sh/mlcvu947","slide":7,"text":"외부 LLM API 미사용 · 자동 AI 분석처럼 표시하지 않음","textPreview":"외부 LLM API 미사용 · 자동 AI 분석처럼 표시하지 않음","textChars":35,"textLines":1,"bbox":[300,589,770,30]}
+{"kind":"notes","id":"nt/3estbt","slide":7,"text":""}
+{"kind":"slide","id":"sl/fj7y4z","slide":8,"title":"07 · 한계와 결론","textShapes":14}
+{"kind":"textbox","id":"sh/wj6povqd","slide":8,"text":"07 · 한계와 결론","textPreview":"07 · 한계와 결론","textChars":11,"textLines":1,"bbox":[48,28,500,24]}
+{"kind":"textbox","id":"sh/vix8vq9s","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1180,28,48,24]}
+{"kind":"textbox","id":"sh/aho72l8n","slide":8,"text":"빠른 선별은 완료 — 다음은 실제 재현과 파서 정확도 개선","textPreview":"빠른 선별은 완료 — 다음은 실제 재현과 파서 정확도 개선","textChars":32,"textLines":1,"bbox":[48,64,1140,58]}
+{"kind":"shape","id":"sh/58zq10ra","slide":8,"bbox":[48,132,1184,2]}
+{"kind":"textbox","id":"sh/knq9svqp","slide":8,"text":"현재 결론","textPreview":"현재 결론","textChars":5,"textLines":1,"bbox":[52,166,200,30]}
+{"kind":"textbox","id":"sh/jmh8zq94","slide":8,"text":"대규모 코드도 배치와 역할 분담으로\n검토 가능한 근거 묶음으로 줄일 수 있다.","textPreview":"대규모 코드도 배치와 역할 분담으로 | 검토 가능한 근거 묶음으로 줄일 수 있다.","textChars":43,"textLines":2,"bbox":[52,207,720,112]}
+{"kind":"shape","id":"sh/il8rql8j","slide":8,"bbox":[906,208,250,34]}
+{"kind":"textbox","id":"sh/tcjq50r6","slide":8,"text":"취약점 확정 아님","textPreview":"취약점 확정 아님","textChars":9,"textLines":1,"bbox":[916,214,230,22]}
+{"kind":"shape","id":"sh/sbq9wfql","slide":8,"bbox":[48,351,1184,1]}
+{"kind":"textbox","id":"sh/e9wzmpsr","slide":8,"text":"한계","textPreview":"한계","textChars":2,"textLines":1,"bbox":[52,393,300,28]}
+{"kind":"textbox","id":"sh/za5gvutw","slide":8,"text":"정규식 기반 호출 관계\n매크로·함수 포인터 해석 한계","textPreview":"정규식 기반 호출 관계 | 매크로·함수 포인터 해석 한계","textChars":29,"textLines":2,"bbox":[52,438,340,78]}
+{"kind":"textbox","id":"sh/0behozah","slide":8,"text":"다음 1","textPreview":"다음 1","textChars":4,"textLines":1,"bbox":[452,393,300,28]}
+{"kind":"textbox","id":"sh/1cnyx4b2","slide":8,"text":"AN-010 최소 재현 테스트\nASan/UBSan 증거 수집","textPreview":"AN-010 최소 재현 테스트 | ASan/UBSan 증거 수집","textChars":33,"textLines":2,"bbox":[452,438,340,78]}
+{"kind":"textbox","id":"sh/mdwzqpsn","slide":8,"text":"다음 2","textPreview":"다음 2","textChars":4,"textLines":1,"bbox":[852,393,300,28]}
+{"kind":"textbox","id":"sh/ne50zut8","slide":8,"text":"AN-007의 libfdt 문자열 종료·\nDTB 검증 경로 추가 조사","textPreview":"AN-007의 libfdt 문자열 종료· | DTB 검증 경로 추가 조사","textChars":38,"textLines":2,"bbox":[852,438,340,78]}
+{"kind":"shape","id":"sh/8fehszat","slide":8,"bbox":[48,590,138,34]}
+{"kind":"textbox","id":"sh/90ni14be","slide":8,"text":"최종 메시지","textPreview":"최종 메시지","textChars":6,"textLines":1,"bbox":[58,596,118,22]}
+{"kind":"textbox","id":"sh/2hsze5cj","slide":8,"text":"찾는 속도는 AI로, 믿을 수 있는 결론은 근거와 검증으로","textPreview":"찾는 속도는 AI로, 믿을 수 있는 결론은 근거와 검증으로","textChars":32,"textLines":1,"bbox":[206,588,970,38]}
+{"kind":"notes","id":"nt/fj7y4z","slide":8,"text":""}

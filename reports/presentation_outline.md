@@ -1,11 +1,11 @@
-# 발표 구성안 — 9장
+# BugBori 발표 구성안 — 9장
 
 ## 1장. 문제와 목표
 
 - UserLand 규모: C/C++ 654개, 약 235,816줄
 - 문제: 전체 코드를 AI에 한 번에 넣을 수 없고 위험 함수 검색은 오탐이 많음
 - 목표: 위험한 부분부터 근거로 검토하고 불확실성을 숨기지 않는 SAST
-- 발표 한 문장: **많이 찾는 도구가 아니라, 왜 위험한지를 검증하는 도구**
+- 발표 한 문장: **BugBori는 많이 찾는 도구가 아니라, 왜 위험한지를 검증하는 도구**
 
 ## 2장. 전체 아키텍처
 
@@ -22,9 +22,9 @@
 
 | Batch | 시작 경로 | 끝 경로 | 파일 | 예상 코드 줄 | 후보 | 시간(초) | 오류 |
 |---|---|---|---|---|---|---|---|
-| BATCH-001 | containers/asf/asf_reader.c | host_applications/linux/apps/raspicam/RaspiPreview.c | 209 | 78,749 | 378 | 0.756 | 0 |
-| BATCH-002 | host_applications/linux/apps/raspicam/RaspiPreview.h | interface/mmal/core/mmal_logging.c | 177 | 78,395 | 101 | 0.553 | 0 |
-| BATCH-003 | interface/mmal/core/mmal_pool.c | vcinclude/vcore.h | 268 | 78,672 | 104 | 0.554 | 0 |
+| BATCH-001 | containers/asf/asf_reader.c | host_applications/linux/apps/raspicam/RaspiPreview.c | 209 | 78,749 | 378 | 0.548 | 0 |
+| BATCH-002 | host_applications/linux/apps/raspicam/RaspiPreview.h | interface/mmal/core/mmal_logging.c | 177 | 78,395 | 101 | 0.555 | 0 |
+| BATCH-003 | interface/mmal/core/mmal_pool.c | vcinclude/vcore.h | 268 | 78,672 | 104 | 0.491 | 0 |
 
 ## 4장. Agent 역할 분담과 신뢰성
 
